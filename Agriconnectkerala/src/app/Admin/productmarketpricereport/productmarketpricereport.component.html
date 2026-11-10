@@ -1,0 +1,499 @@
+<div class="report-container">
+
+  <!-- HEADER -->
+
+  <div class="report-header">
+
+    <div>
+
+      <h2>
+        Product & Market Price Report
+      </h2>
+
+      <p>
+        Overview of farmer products and current market prices
+      </p>
+
+    </div>
+
+
+    <div class="report-actions">
+
+      <button
+        type="button"
+        class="btn-pdf"
+        (click)="exportPDF()">
+
+        <i class="fa fa-file-pdf-o"></i>
+
+        PDF
+
+      </button>
+
+
+      <button
+        type="button"
+        class="btn-excel"
+        (click)="exportExcel()">
+
+        <i class="fa fa-file-excel-o"></i>
+
+        Excel
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- SUMMARY CARDS -->
+
+  <div class="summary-cards">
+
+
+    <div class="summary-card total">
+
+      <div class="card-icon">
+
+        <i class="fa fa-cubes"></i>
+
+      </div>
+
+      <div>
+
+        <span>
+          Total Products
+        </span>
+
+        <h3>
+          {{ totalProducts }}
+        </h3>
+
+      </div>
+
+    </div>
+
+
+    <div class="summary-card available">
+
+      <div class="card-icon">
+
+        <i class="fa fa-check-circle"></i>
+
+      </div>
+
+      <div>
+
+        <span>
+          Available
+        </span>
+
+        <h3>
+          {{ availableProducts }}
+        </h3>
+
+      </div>
+
+    </div>
+
+
+    <div class="summary-card sold">
+
+      <div class="card-icon">
+
+        <i class="fa fa-shopping-cart"></i>
+
+      </div>
+
+      <div>
+
+        <span>
+          Sold
+        </span>
+
+        <h3>
+          {{ soldProducts }}
+        </h3>
+
+      </div>
+
+    </div>
+
+
+    <div class="summary-card price">
+
+      <div class="card-icon">
+
+        <i class="fa fa-line-chart"></i>
+
+      </div>
+
+      <div>
+
+        <span>
+          With Market Price
+        </span>
+
+        <h3>
+          {{ productsWithPrice }}
+        </h3>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FILTER -->
+
+  <div class="filter-section">
+
+
+    <div class="search-box">
+
+      <i class="fa fa-search"></i>
+
+      <input
+        type="text"
+        placeholder="Search product, category or farmer..."
+        [(ngModel)]="searchText"
+        (input)="filterProducts()">
+
+    </div>
+
+
+    <select
+      [(ngModel)]="selectedCategory"
+      (change)="filterProducts()">
+
+      <option value="All">
+        All Categories
+      </option>
+
+      <option
+        *ngFor="let category of categoryArray"
+        [value]="category">
+
+        {{ category }}
+
+      </option>
+
+    </select>
+
+
+    <select
+      [(ngModel)]="selectedDistrict"
+      (change)="filterProducts()">
+
+      <option value="All">
+        All Districts
+      </option>
+
+      <option
+        *ngFor="let district of districtArray"
+        [value]="district">
+
+        {{ district }}
+
+      </option>
+
+    </select>
+
+
+    <select
+      [(ngModel)]="selectedStatus"
+      (change)="filterProducts()">
+
+      <option value="All">
+        All Status
+      </option>
+
+      <option value="Available">
+        Available
+      </option>
+
+      <option value="Sold">
+        Sold
+      </option>
+
+    </select>
+
+
+    <button
+      type="button"
+      class="clear-btn"
+      (click)="clearFilters()">
+
+      <i class="fa fa-refresh"></i>
+
+      Clear
+
+    </button>
+
+  </div>
+
+
+  <!-- TABLE -->
+
+  <div class="table-card">
+
+
+    <div class="table-header">
+
+      <div>
+
+        <h3>
+          Product & Market Price Details
+        </h3>
+
+        <span>
+          {{ filteredProducts.length }} products found
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="table-responsive">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>#</th>
+
+            <th>Product</th>
+
+            <th>Category</th>
+
+            <th>Farmer</th>
+
+            <th>Quantity</th>
+
+            <th>Quality</th>
+
+            <th>Expected Price</th>
+
+            <th>Market Price</th>
+
+            <th>Trend</th>
+
+            <th>District</th>
+
+            <th>Location</th>
+
+            <th>Upload Date</th>
+
+            <th>Status</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr
+            *ngFor="
+              let product of filteredProducts;
+              let i = index
+            ">
+
+
+            <td>
+              {{ i + 1 }}
+            </td>
+
+
+            <td>
+
+              <strong>
+                {{ product.productname }}
+              </strong>
+
+            </td>
+
+
+            <td>
+              {{ product.categoryname }}
+            </td>
+
+
+            <td>
+              {{ product.farmername }}
+            </td>
+
+
+            <td>
+
+              {{ product.quantity }}
+              {{ product.unit }}
+
+            </td>
+
+
+            <td>
+              {{ product.quality }}
+            </td>
+
+
+            <td>
+
+              ₹{{ product.expectedprice }}
+
+            </td>
+
+
+            <td>
+
+              <span
+                *ngIf="product.marketprice != null"
+                class="market-price">
+
+                ₹{{ product.marketprice }}
+
+              </span>
+
+              <span
+                *ngIf="product.marketprice == null"
+                class="not-available">
+
+                N/A
+
+              </span>
+
+            </td>
+
+
+            <td>
+
+              <span
+                *ngIf="product.trend"
+                class="trend-badge"
+
+                [ngClass]="{
+
+                  'increase':
+                    product.trend === 'Increase',
+
+                  'decrease':
+                    product.trend === 'Decrease',
+
+                  'stable':
+                    product.trend === 'Stable'
+
+                }">
+
+                <i
+                  class="fa"
+
+                  [ngClass]="{
+
+                    'fa-arrow-up':
+                      product.trend === 'Increase',
+
+                    'fa-arrow-down':
+                      product.trend === 'Decrease',
+
+                    'fa-minus':
+                      product.trend === 'Stable'
+
+                  }">
+                </i>
+
+                {{ product.trend }}
+
+              </span>
+
+
+              <span
+                *ngIf="!product.trend"
+                class="not-available">
+
+                N/A
+
+              </span>
+
+            </td>
+
+
+            <td>
+              {{ product.district }}
+            </td>
+
+
+            <td>
+              {{ product.location }}
+            </td>
+
+
+            <td>
+
+              {{
+                product.uploaddate
+                  ? (product.uploaddate | date:'dd-MM-yyyy')
+                  : '-'
+              }}
+
+            </td>
+
+
+            <td>
+
+              <span
+                class="status-badge"
+
+                [ngClass]="{
+
+                  'available':
+                    product.status === 'Available',
+
+                  'sold':
+                    product.status === 'Sold'
+
+                }">
+
+                {{ product.status }}
+
+              </span>
+
+            </td>
+
+          </tr>
+
+
+          <!-- NO DATA -->
+
+          <tr
+            *ngIf="
+              filteredProducts.length === 0
+            ">
+
+            <td
+              colspan="13"
+              class="no-data">
+
+              <i class="fa fa-cubes"></i>
+
+              <p>
+                No products found.
+              </p>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,230 @@
+<h2 class="text-center text-success mb-4">
+  My Purchase Requests
+</h2>
+
+<div class="row">
+
+  <div
+    class="col-lg-4 col-md-6 mb-4"
+    *ngFor="let r of requestArray">
+
+    <div class="card shadow-lg border-0 h-100">
+
+      <!-- PRODUCT IMAGE -->
+      <img
+        [src]="'http://localhost:3000/images/' + r.image"
+        class="card-img-top"
+        style="height:220px; object-fit:cover;"
+        alt="Product Image">
+
+      <div class="card-body">
+
+        <h5 class="text-success fw-bold">
+          {{ r.productname }}
+        </h5>
+
+        <hr>
+
+        <p>
+          <strong>Category :</strong>
+          {{ r.categoryname }}
+        </p>
+
+        <p>
+          <strong>Farmer :</strong>
+          {{ r.farmername }}
+        </p>
+
+        <p>
+          <strong>District :</strong>
+          {{ r.districtname }}
+        </p>
+
+        <p>
+          <strong>Location :</strong>
+          {{ r.locationname }}
+        </p>
+
+        <p>
+          <strong>Requested Quantity :</strong>
+          {{ r.requestquantity }} {{ r.unit }}
+        </p>
+
+        <p>
+          <strong>Your Offer :</strong>
+          ₹{{ r.offeredprice }}
+        </p>
+
+        <p>
+          <strong>Expected Price :</strong>
+          ₹{{ r.expectedprice }}
+        </p>
+
+        <p>
+          <strong>Request Date :</strong>
+          {{ r.requestdate | date:'dd-MM-yyyy' }}
+        </p>
+
+        <!-- REQUEST STATUS -->
+        <p>
+          <strong>Status :</strong>
+
+          <span
+            class="badge bg-warning text-dark"
+            *ngIf="r.status == 'Pending'">
+            Pending
+          </span>
+
+          <span
+            class="badge bg-success"
+            *ngIf="r.status == 'Accepted'">
+            Accepted
+          </span>
+
+          <span
+            class="badge bg-success"
+            *ngIf="r.status == 'Advance Paid'">
+            Advance Paid
+          </span>
+
+          <span
+            class="badge bg-danger"
+            *ngIf="r.status == 'Rejected'">
+            Rejected
+          </span>
+        </p>
+
+        <!-- PAYMENT STATUS -->
+        <p
+          *ngIf="r.status == 'Accepted' || r.status == 'Advance Paid'">
+
+          <strong>Payment :</strong>
+
+          <span
+            class="badge bg-warning text-dark"
+            *ngIf="r.paymentstatus != 'Paid'">
+            Payment Pending
+          </span>
+
+          <span
+            class="badge bg-success"
+            *ngIf="r.paymentstatus == 'Paid'">
+            Paid
+          </span>
+
+        </p>
+
+        <!-- FARMER CONTACT -->
+        <div
+          *ngIf="r.status == 'Accepted' || r.status == 'Advance Paid'">
+
+          <hr>
+
+          <p>
+            <strong>Farmer Contact :</strong>
+            {{ r.phoneno }}
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- FOOTER -->
+      <div class="card-footer bg-white text-center">
+
+        <!-- ACCEPTED OR ADVANCE PAID -->
+        <div
+          *ngIf="r.status == 'Accepted' || r.status == 'Advance Paid'"
+          class="row g-2">
+
+          <!-- CALL -->
+          <div class="col-6">
+
+            <a
+              class="btn btn-success w-100"
+              [href]="'tel:' + r.phoneno">
+
+               Call
+
+            </a>
+
+          </div>
+
+          <!-- WHATSAPP -->
+          <div class="col-6">
+
+            <a
+              class="btn w-100 text-white"
+              style="background:#25D366;"
+              [href]="'https://wa.me/91' + r.phoneno"
+              target="_blank">
+
+               WhatsApp
+
+            </a>
+
+          </div>
+
+          <!-- PAY ADVANCE -->
+          <div
+            class="col-12"
+            *ngIf="r.paymentstatus != 'Paid'">
+
+            <button
+              type="button"
+              class="btn btn-primary w-100 mt-2"
+              (click)="payAdvance(r.requestid)">
+
+               Pay Advance
+
+            </button>
+
+          </div>
+
+          <!-- VIEW RECEIPT -->
+          <div
+            class="col-12"
+            *ngIf="r.paymentstatus == 'Paid'">
+
+            <button
+              type="button"
+              class="btn btn-success w-100 mt-2"
+              (click)="viewReceipt(r.requestid)">
+
+               View Receipt
+
+            </button>
+
+          </div>
+
+        </div>
+
+        <!-- PENDING -->
+        <button
+          *ngIf="r.status == 'Pending'"
+          type="button"
+          class="btn btn-secondary"
+          disabled>
+
+          Waiting for Farmer Approval
+
+        </button>
+
+        <!-- REJECTED -->
+        <button
+          *ngIf="r.status == 'Rejected'"
+          type="button"
+          class="btn btn-danger"
+          disabled>
+
+          Request Rejected
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

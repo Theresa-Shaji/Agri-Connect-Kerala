@@ -1,0 +1,516 @@
+<div class="report-container">
+
+  <!-- ======================================
+       REPORT HEADER
+  ======================================= -->
+
+  <div class="report-header">
+
+    <div class="header-content">
+
+      <h2>
+        Registered Users Report
+      </h2>
+
+      <p>
+        Overview of all registered users in Agri Connect Kerala
+      </p>
+
+    </div>
+
+
+    <div class="report-actions">
+
+      <button
+        type="button"
+        class="btn-pdf"
+        (click)="exportPDF()">
+
+        <i class="fa fa-file-pdf-o"></i>
+
+        PDF
+
+      </button>
+
+
+      <button
+        type="button"
+        class="btn-excel"
+        (click)="exportExcel()">
+
+        <i class="fa fa-file-excel-o"></i>
+
+        Excel
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================
+       SUMMARY CARDS
+  ======================================= -->
+
+  <div class="summary-cards">
+
+
+    <!-- TOTAL USERS -->
+
+    <div class="summary-card total">
+
+      <div class="card-icon">
+
+        <i class="fa fa-users"></i>
+
+      </div>
+
+      <div class="card-content">
+
+        <span>
+          Total Users
+        </span>
+
+        <h3>
+          {{ totalUsers }}
+        </h3>
+
+      </div>
+
+    </div>
+
+
+    <!-- FARMERS -->
+
+    <div class="summary-card farmer">
+
+      <div class="card-icon">
+
+        <i class="fa fa-user"></i>
+
+      </div>
+
+      <div class="card-content">
+
+        <span>
+          Farmers
+        </span>
+
+        <h3>
+          {{ totalFarmers }}
+        </h3>
+
+      </div>
+
+    </div>
+
+
+    <!-- SHOP OWNERS -->
+
+    <div class="summary-card shop">
+
+      <div class="card-icon">
+
+        <i class="fa fa-shopping-bag"></i>
+
+      </div>
+
+      <div class="card-content">
+
+        <span>
+          Shop Owners
+        </span>
+
+        <h3>
+          {{ totalShopOwners }}
+        </h3>
+
+      </div>
+
+    </div>
+
+
+    <!-- BUYERS -->
+
+    <div class="summary-card buyer">
+
+      <div class="card-icon">
+
+        <i class="fa fa-user-circle"></i>
+
+      </div>
+
+      <div class="card-content">
+
+        <span>
+          Buyers
+        </span>
+
+        <h3>
+          {{ totalBuyers }}
+        </h3>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================
+       DOUGHNUT CHART
+  ======================================= -->
+
+  <div class="chart-card">
+
+    <div class="chart-header">
+
+      <div>
+
+        <h3>
+          Registered Users by Type
+        </h3>
+
+        <p>
+          Distribution of farmers, shop owners and buyers
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="chart-container">
+
+      <canvas
+        #userChart>
+      </canvas>
+
+    </div>
+
+  </div>
+
+
+  <!-- ======================================
+       FILTER SECTION
+  ======================================= -->
+
+  <div class="filter-section">
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+      <i class="fa fa-search"></i>
+
+      <input
+        type="text"
+        placeholder="Search name, email or phone..."
+        [(ngModel)]="searchText"
+        (input)="filterUsers()">
+
+    </div>
+
+
+    <!-- USER TYPE -->
+
+    <select
+      [(ngModel)]="selectedUserType"
+      (change)="filterUsers()">
+
+      <option value="All">
+        All User Types
+      </option>
+
+      <option value="Farmer">
+        Farmer
+      </option>
+
+      <option value="Shop Owner">
+        Shop Owner
+      </option>
+
+      <option value="Buyer">
+        Buyer
+      </option>
+
+    </select>
+
+
+    <!-- DISTRICT -->
+
+    <select
+      [(ngModel)]="selectedDistrict"
+      (change)="filterUsers()">
+
+      <option value="All">
+        All Districts
+      </option>
+
+      <option
+        *ngFor="let district of districtArray"
+        [value]="district">
+
+        {{ district }}
+
+      </option>
+
+    </select>
+
+
+    <!-- CLEAR -->
+
+    <button
+      type="button"
+      class="clear-btn"
+      (click)="clearFilters()">
+
+      <i class="fa fa-refresh"></i>
+
+      Clear
+
+    </button>
+
+  </div>
+
+
+  <!-- ======================================
+       USERS TABLE
+  ======================================= -->
+
+  <div class="table-card">
+
+
+    <!-- TABLE HEADER -->
+
+    <div class="table-header">
+
+      <div>
+
+        <h3>
+          Registered Users
+        </h3>
+
+        <span>
+          {{ filteredUsers.length }} users found
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- TABLE -->
+
+    <div class="table-responsive">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              #
+            </th>
+
+            <th>
+              Name
+            </th>
+
+            <th>
+              User Type
+            </th>
+
+            <th>
+              Email
+            </th>
+
+            <th>
+              Phone
+            </th>
+
+            <th>
+              District
+            </th>
+
+            <th>
+              Location
+            </th>
+
+            <th>
+              Registration Date
+            </th>
+
+            <th>
+              Status
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+
+          <!-- USER ROW -->
+
+          <tr
+            *ngFor="
+              let user of filteredUsers;
+              let i = index
+            ">
+
+
+            <!-- NUMBER -->
+
+            <td>
+              {{ i + 1 }}
+            </td>
+
+
+            <!-- NAME -->
+
+            <td>
+
+              <strong>
+                {{ user.name }}
+              </strong>
+
+            </td>
+
+
+            <!-- USER TYPE -->
+
+            <td>
+
+              <span
+                class="user-badge"
+
+                [ngClass]="{
+
+                  'farmer-badge':
+                    user.usertype === 'Farmer',
+
+                  'shop-badge':
+                    user.usertype === 'Shop Owner',
+
+                  'buyer-badge':
+                    user.usertype === 'Buyer'
+
+                }">
+
+                {{ user.usertype }}
+
+              </span>
+
+            </td>
+
+
+            <!-- EMAIL -->
+
+            <td>
+              {{ user.email }}
+            </td>
+
+
+            <!-- PHONE -->
+
+            <td>
+              {{ user.phone }}
+            </td>
+
+
+            <!-- DISTRICT -->
+
+            <td>
+              {{ user.district }}
+            </td>
+
+
+            <!-- LOCATION -->
+
+            <td>
+              {{ user.location }}
+            </td>
+
+
+            <!-- REGISTRATION DATE -->
+
+            <td>
+
+              {{
+                user.regdate
+                  ? (user.regdate | date:'dd-MM-yyyy')
+                  : '-'
+              }}
+
+            </td>
+
+
+            <!-- STATUS -->
+
+            <td>
+
+              <span
+                class="status-badge"
+
+                [ngClass]="{
+
+                  'active':
+                    user.status == 1 ||
+                    user.status === 'Active',
+
+                  'inactive':
+                    user.status != 1 &&
+                    user.status !== 'Active'
+
+                }">
+
+                {{
+                  user.status == 1
+                    ? 'Active'
+                    : user.status
+                }}
+
+              </span>
+
+            </td>
+
+          </tr>
+
+
+          <!-- NO DATA -->
+
+          <tr
+            *ngIf="
+              filteredUsers.length === 0
+            ">
+
+            <td
+              colspan="9"
+              class="no-data">
+
+              <i class="fa fa-users"></i>
+
+              <p>
+                No registered users found.
+              </p>
+
+            </td>
+
+          </tr>
+
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,510 @@
+<div class="report-container">
+
+  <!-- HEADER -->
+
+  <div class="report-header">
+
+    <div>
+
+      <h2>
+        Purchase Request Report
+      </h2>
+
+      <p>
+        Overview of product purchase requests
+      </p>
+
+    </div>
+
+
+    <div class="report-actions">
+
+      <button
+        type="button"
+        class="btn-pdf"
+        (click)="exportPDF()">
+
+        <i class="fa fa-file-pdf-o"></i>
+
+        PDF
+
+      </button>
+
+
+      <button
+        type="button"
+        class="btn-excel"
+        (click)="exportExcel()">
+
+        <i class="fa fa-file-excel-o"></i>
+
+        Excel
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- SUMMARY CARDS -->
+
+  <div class="summary-cards">
+
+
+    <!-- TOTAL -->
+
+    <div class="summary-card total">
+
+      <div class="card-icon">
+
+        <i class="fa fa-list-alt"></i>
+
+      </div>
+
+      <div>
+
+        <span>
+          Total Requests
+        </span>
+
+        <h3>
+          {{ totalRequests }}
+        </h3>
+
+      </div>
+
+    </div>
+
+
+    <!-- PENDING -->
+
+    <div class="summary-card pending">
+
+      <div class="card-icon">
+
+        <i class="fa fa-clock-o"></i>
+
+      </div>
+
+      <div>
+
+        <span>
+          Pending
+        </span>
+
+        <h3>
+          {{ pendingRequests }}
+        </h3>
+
+      </div>
+
+    </div>
+
+
+    <!-- ACCEPTED -->
+
+    <div class="summary-card accepted">
+
+      <div class="card-icon">
+
+        <i class="fa fa-check-circle"></i>
+
+      </div>
+
+      <div>
+
+        <span>
+          Accepted
+        </span>
+
+        <h3>
+          {{ acceptedRequests }}
+        </h3>
+
+      </div>
+
+    </div>
+
+
+    <!-- REJECTED -->
+
+    <div class="summary-card rejected">
+
+      <div class="card-icon">
+
+        <i class="fa fa-times-circle"></i>
+
+      </div>
+
+      <div>
+
+        <span>
+          Rejected
+        </span>
+
+        <h3>
+          {{ rejectedRequests }}
+        </h3>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FILTER SECTION -->
+
+  <div class="filter-section">
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+      <i class="fa fa-search"></i>
+
+      <input
+        type="text"
+        placeholder="Search product, farmer or requester..."
+        [(ngModel)]="searchText"
+        (input)="filterRequests()">
+
+    </div>
+
+
+    <!-- USER TYPE -->
+
+    <select
+      [(ngModel)]="selectedUserType"
+      (change)="filterRequests()">
+
+      <option value="All">
+        All Requesters
+      </option>
+
+      <option value="Buyer">
+        Buyer
+      </option>
+
+      <option value="Shop Owner">
+        Shop Owner
+      </option>
+
+    </select>
+
+
+    <!-- STATUS -->
+
+    <select
+      [(ngModel)]="selectedStatus"
+      (change)="filterRequests()">
+
+      <option value="All">
+        All Status
+      </option>
+
+      <option value="Pending">
+        Pending
+      </option>
+
+      <option value="Accepted">
+        Accepted
+      </option>
+
+      <option value="Rejected">
+        Rejected
+      </option>
+
+    </select>
+
+
+    <!-- CLEAR -->
+
+    <button
+      type="button"
+      class="clear-btn"
+      (click)="clearFilters()">
+
+      <i class="fa fa-refresh"></i>
+
+      Clear
+
+    </button>
+
+  </div>
+
+
+  <!-- TABLE -->
+
+  <div class="table-card">
+
+
+    <!-- TABLE HEADER -->
+
+    <div class="table-header">
+
+      <div>
+
+        <h3>
+          Purchase Request Details
+        </h3>
+
+        <span>
+          {{ filteredRequests.length }}
+          requests found
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- TABLE -->
+
+    <div class="table-responsive">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>#</th>
+
+            <th>Request ID</th>
+
+            <th>Product</th>
+
+            <th>Farmer</th>
+
+            <th>Requester</th>
+
+            <th>Type</th>
+
+            <th>Quantity</th>
+
+            <th>Offered Price</th>
+
+            <th>Message</th>
+
+            <th>District</th>
+
+            <th>Location</th>
+
+            <th>Request Date</th>
+
+            <th>Status</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+
+          <!-- DATA -->
+
+          <tr
+            *ngFor="
+              let request of filteredRequests;
+              let i = index
+            ">
+
+
+            <td>
+              {{ i + 1 }}
+            </td>
+
+
+            <td>
+
+              <span class="request-id">
+
+                #{{ request.requestid }}
+
+              </span>
+
+            </td>
+
+
+            <td>
+
+              <strong>
+                {{ request.productname }}
+              </strong>
+
+            </td>
+
+
+            <td>
+              {{ request.farmername }}
+            </td>
+
+
+            <td>
+
+              <strong>
+                {{ request.requestername }}
+              </strong>
+
+              <small
+                *ngIf="request.requesteremail">
+
+                {{ request.requesteremail }}
+
+              </small>
+
+            </td>
+
+
+            <td>
+
+              <span
+                class="user-type"
+                [ngClass]="{
+
+                  'buyer':
+                    normalizeUserType(
+                      request.usertype
+                    ) === 'buyer',
+
+                  'shopowner':
+                    normalizeUserType(
+                      request.usertype
+                    ) === 'shopowner'
+
+                }">
+
+                {{ displayUserType(request.usertype) }}
+
+              </span>
+
+            </td>
+
+
+            <td>
+
+              {{ request.quantity }}
+
+              <span
+                *ngIf="request.unit">
+
+                {{ request.unit }}
+
+              </span>
+
+            </td>
+
+
+            <td>
+
+              <span class="price">
+
+                ₹{{ request.offeredprice }}
+
+              </span>
+
+            </td>
+
+
+            <td>
+
+              <span
+                class="message"
+                [title]="request.message">
+
+                {{ request.message || '-' }}
+
+              </span>
+
+            </td>
+
+
+            <td>
+              {{ request.district || '-' }}
+            </td>
+
+
+            <td>
+              {{ request.location || '-' }}
+            </td>
+
+
+            <td>
+
+              {{
+                request.requestdate
+                  ? (request.requestdate | date:'dd-MM-yyyy')
+                  : '-'
+              }}
+
+            </td>
+
+
+            <td>
+
+              <span
+                class="status-badge"
+
+                [ngClass]="{
+
+                  'pending':
+                    normalizeStatus(
+                      request.status
+                    ) === 'pending',
+
+                  'accepted':
+                    normalizeStatus(
+                      request.status
+                    ) === 'accepted',
+
+                  'rejected':
+                    normalizeStatus(
+                      request.status
+                    ) === 'rejected'
+
+                }">
+
+                {{ request.status }}
+
+              </span>
+
+            </td>
+
+          </tr>
+
+
+          <!-- NO DATA -->
+
+          <tr
+            *ngIf="
+              filteredRequests.length === 0
+            ">
+
+            <td
+              colspan="13"
+              class="no-data">
+
+              <i class="fa fa-inbox"></i>
+
+              <p>
+                No purchase requests found.
+              </p>
+
+            </td>
+
+          </tr>
+
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

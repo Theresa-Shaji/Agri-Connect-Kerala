@@ -1,0 +1,51 @@
+<div class="col-12 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <button class="btn btn-primary" style="margin-left:1000px;" [routerLink]="['/adminmaster/locationview']">View Data</button>
+      <h4 class="card-title">Location Registration</h4>
+      <p class="card-description">
+       
+      </p>
+      <form class="forms-sample" [formGroup]="locationForm">
+       
+
+        <!-- <div class="card-body">
+          <div class="row" style="padding-left: 800px;">
+            <button class="btn btn-primary" [routerLink]="['/adminmaster/districtview']">View Data</button> -->
+        
+        <div class="form-group">
+          <label for="exampleSelectGender"><strong>District</strong></label>
+            <select class="form-control" id="exampleSelectGender" formControlName="districtid">
+              <option value="">Choose District</option>
+              <option *ngFor="let data of districtdataarray" 
+              value="{{data.districtid}}">{{ data.districtname }}</option> 
+            </select>
+          
+
+            <label
+            *ngIf="locationForm.controls['districtid'].invalid && (locationForm.controls['districtid'].dirty || locationForm.controls['districtid'].touched || savestatus)"
+            class="text-danger">* Please choose a district</label>
+
+         </div>
+         <div class="form-group">
+          <label for="exampleInputName1">Location Name</label>
+          <input type="text" class="form-control" id="exampleInputName1" formControlName="LocationName" placeholder="Location Name">
+
+          <div *ngIf="locationForm.controls['LocationName'].invalid && (locationForm.controls['LocationName'].dirty || locationForm.controls['LocationName'].touched)">
+
+            <label
+                *ngIf="locationForm.controls['LocationName'].errors?.['required']"
+                class="text-danger">* Please enter the district name</label>
+            <label
+               *ngIf="locationForm.controls['LocationName'].errors?.['pattern']"
+                class="text-danger">* Only letters allowed & first letter should be capital</label>
+        </div>
+
+
+        </div>
+        <button type="submit" class="btn btn-primary mr-2" (click)="Onsubmit()">Submit</button>
+        <button class="btn btn-light">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,511 @@
+<div class="feedback-page">
+
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <div class="feedback-header">
+
+    <div class="header-icon">
+      ⭐
+    </div>
+
+    <div class="header-content">
+
+      <h2>
+        Customer Feedback
+      </h2>
+
+      <p>
+        See feedback and ratings given by buyers
+        and shop owners for your products.
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       LOADING
+  ====================================================== -->
+
+  <div
+    class="loading-box"
+    *ngIf="loading"
+  >
+
+    <div class="loader"></div>
+
+    <p>
+      Loading customer feedback...
+    </p>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       ERROR
+  ====================================================== -->
+
+  <div
+    class="error-box"
+    *ngIf="
+      !loading &&
+      errorMessage
+    "
+  >
+
+    <span class="error-icon">
+      ⚠️
+    </span>
+
+    <span>
+      {{ errorMessage }}
+    </span>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       NO FEEDBACK
+  ====================================================== -->
+
+  <div
+    class="empty-box"
+    *ngIf="
+      !loading &&
+      !errorMessage &&
+      feedbackArray.length === 0
+    "
+  >
+
+    <div class="empty-icon">
+      ⭐
+    </div>
+
+    <h3>
+      No Feedback Yet
+    </h3>
+
+    <p>
+      You have not received any customer feedback yet.
+    </p>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       FEEDBACK GRID
+  ====================================================== -->
+
+  <div
+    class="feedback-grid"
+    *ngIf="
+      !loading &&
+      !errorMessage &&
+      feedbackArray.length > 0
+    "
+  >
+
+
+    <!-- ===================================================
+         FEEDBACK CARD
+    ==================================================== -->
+
+    <div
+      class="feedback-card"
+      *ngFor="let feedback of feedbackArray"
+    >
+
+
+      <!-- ================================================
+           PRODUCT IMAGE
+      ================================================= -->
+
+      <div class="product-image">
+
+        <img
+          [src]="
+            'http://localhost:3000/images/' +
+            feedback.image
+          "
+          [alt]="feedback.productname"
+          onerror="
+            this.src='assets/images/no-image.png'
+          "
+        >
+
+      </div>
+
+
+
+      <!-- ================================================
+           CARD CONTENT
+      ================================================= -->
+
+      <div class="card-content">
+
+
+        <!-- ==============================================
+             PRODUCT NAME
+        =============================================== -->
+
+        <h3 class="product-name">
+
+          {{ feedback.productname }}
+
+        </h3>
+
+
+
+        <!-- ==============================================
+             FEEDBACK SOURCE
+        =============================================== -->
+
+        <div class="feedback-source">
+
+
+          <!-- BUYER -->
+
+          <span
+            class="buyer-badge"
+            *ngIf="
+              feedback.fromusertype === 'Buyer'
+            "
+          >
+
+             Buyer Feedback
+
+          </span>
+
+
+          <!-- SHOP OWNER -->
+
+          <span
+            class="shopowner-badge"
+            *ngIf="
+              feedback.fromusertype === 'ShopOwner'
+            "
+          >
+
+             Shop Owner Feedback
+
+          </span>
+
+
+        </div>
+
+
+
+        <!-- ==============================================
+             CUSTOMER SECTION
+        =============================================== -->
+
+        <div class="customer-section">
+
+
+          <div class="section-title">
+
+            
+
+            <span
+              *ngIf="
+                feedback.fromusertype === 'Buyer'
+              "
+            >
+              Buyer Details
+            </span>
+
+
+            <span
+              *ngIf="
+                feedback.fromusertype === 'ShopOwner'
+              "
+            >
+              Shop Owner Details
+            </span>
+
+          </div>
+
+
+
+          <div class="customer-details">
+
+
+            <!-- ==========================================
+                 BUYER NAME
+            =========================================== -->
+
+            <div
+              class="detail-row"
+              *ngIf="
+                feedback.fromusertype === 'Buyer'
+              "
+            >
+
+              <span class="detail-label">
+                Name
+              </span>
+
+              <strong>
+
+                {{ feedback.buyername || 'Buyer' }}
+
+              </strong>
+
+            </div>
+
+
+
+            <!-- ==========================================
+                 BUYER PHONE
+            =========================================== -->
+
+            <div
+              class="detail-row"
+              *ngIf="
+                feedback.fromusertype === 'Buyer' &&
+                feedback.buyerphone
+              "
+            >
+
+              <span class="detail-label">
+                Phone
+              </span>
+
+              <strong>
+
+                {{ feedback.buyerphone }}
+
+              </strong>
+
+            </div>
+
+
+
+            <!-- ==========================================
+                 SHOP NAME
+            =========================================== -->
+
+            <div
+              class="detail-row"
+              *ngIf="
+                feedback.fromusertype === 'ShopOwner'
+              "
+            >
+
+              <span class="detail-label">
+                Shop
+              </span>
+
+              <strong>
+
+                {{ feedback.shopname || 'Shop' }}
+
+              </strong>
+
+            </div>
+
+
+
+            <!-- ==========================================
+                 SHOP OWNER NAME
+            =========================================== -->
+
+            <div
+              class="detail-row"
+              *ngIf="
+                feedback.fromusertype === 'ShopOwner'
+              "
+            >
+
+              <span class="detail-label">
+                Owner
+              </span>
+
+              <strong>
+
+                {{ feedback.shopownername || 'Shop Owner' }}
+
+              </strong>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ==============================================
+             PURCHASE DETAILS
+        =============================================== -->
+
+        <div class="purchase-details">
+
+
+          <!-- QUANTITY -->
+
+          <div class="detail-box">
+
+            <span>
+              Quantity
+            </span>
+
+            <strong>
+
+              {{ feedback.quantity || 0 }}
+
+              {{ feedback.unit || 'Kg' }}
+
+            </strong>
+
+          </div>
+
+
+
+          <!-- PRICE -->
+
+          <div class="detail-box">
+
+            <span>
+              Price
+            </span>
+
+            <strong>
+
+              ₹{{ feedback.price || 0 }}
+
+              / {{ feedback.unit || 'Kg' }}
+
+            </strong>
+
+          </div>
+
+
+        </div>
+
+
+
+        <!-- ==============================================
+             RATING
+        =============================================== -->
+
+        <div class="rating-section">
+
+
+          <span class="rating-label">
+            Rating
+          </span>
+
+
+
+          <div class="stars">
+
+            <span
+              *ngFor="
+                let star of [1,2,3,4,5]
+              "
+              [class.active]="
+                feedback.rating >= star
+              "
+            >
+
+              ★
+
+            </span>
+
+          </div>
+
+
+
+          <span class="rating-number">
+
+            {{ feedback.rating }}/5
+
+          </span>
+
+
+        </div>
+
+
+
+        <!-- ==============================================
+             FEEDBACK MESSAGE
+        =============================================== -->
+
+        <div class="feedback-message">
+
+
+          <div class="feedback-title">
+
+             Feedback
+
+          </div>
+
+
+          <p>
+
+            "{{ feedback.feedback }}"
+
+          </p>
+
+
+        </div>
+
+
+
+        <!-- ==============================================
+             PRODUCT INFO
+        =============================================== -->
+
+        <div class="product-info">
+
+          <span>
+            Product
+          </span>
+
+          <strong>
+
+            {{ feedback.productname }}
+
+          </strong>
+
+        </div>
+
+
+
+        <!-- ==============================================
+             DATE
+        =============================================== -->
+
+        <div class="feedback-date">
+
+          <span class="date-icon">
+            📅
+          </span>
+
+          <span>
+
+            {{ feedback.feedbackdate | date:'dd-MM-yyyy' }}
+
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>

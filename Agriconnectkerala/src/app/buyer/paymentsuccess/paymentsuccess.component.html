@@ -1,0 +1,401 @@
+<div class="success-page">
+
+  <div class="receipt-wrapper">
+
+    <!-- =====================================================
+         BRAND
+    ====================================================== -->
+    <div class="brand-section">
+
+      <div class="brand-icon">
+        🌾
+      </div>
+
+      <div class="brand-text">
+        <h1>Agri Connect Kerala</h1>
+        <p>Advance Payment Receipt</p>
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PAYMENT SUCCESS
+    ====================================================== -->
+    <div class="success-card">
+
+      <div class="success-circle">
+        <span>✓</span>
+      </div>
+
+      <h2>Payment Successful</h2>
+
+      <p>
+        Your advance payment has been completed successfully.
+      </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         PAID TO FARMER
+    ====================================================== -->
+    <div class="paid-card">
+
+      
+
+      <div class="farmer-info">
+
+        <span>PAID TO FARMER</span>
+
+        <h3>
+          {{ farmername || 'Farmer' }}
+        </h3>
+
+      </div>
+
+      <div class="verified">
+        ✓
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ADVANCE AMOUNT
+    ====================================================== -->
+    <div class="amount-card">
+
+      <span>ADVANCE AMOUNT PAID</span>
+
+      <h2>
+        ₹{{ advamount | number:'1.2-2' }}
+      </h2>
+
+      <small>
+        20% Advance Payment
+      </small>
+
+    </div>
+
+
+    <!-- =====================================================
+         PRODUCT DETAILS
+    ====================================================== -->
+    <div class="details-card">
+
+      <div class="card-title">
+
+        <div class="title-icon">
+          🌾
+        </div>
+
+        <div>
+
+          <h3>Product Details</h3>
+
+          <p>
+            Purchase information
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="details-grid">
+
+        <!-- PRODUCT -->
+
+        <div class="detail">
+
+          <span>
+            Product
+          </span>
+
+          <strong>
+            {{ productname || 'Not Available' }}
+          </strong>
+
+        </div>
+
+
+        <!-- QUANTITY -->
+
+        <div class="detail">
+
+          <span>
+            Quantity
+          </span>
+
+          <strong>
+            {{ quantity }}
+            {{ unit || '' }}
+          </strong>
+
+        </div>
+
+
+        <!-- PRICE -->
+
+        <div class="detail">
+
+          <span>
+            Price per {{ unit || 'unit' }}
+          </span>
+
+          <strong>
+            ₹{{ priceperunit | number:'1.2-2' }}
+          </strong>
+
+        </div>
+
+
+        <!-- TOTAL -->
+
+        <div class="detail">
+
+          <span>
+            Total Purchase Amount
+          </span>
+
+          <strong>
+            ₹{{ totalamount | number:'1.2-2' }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PAYMENT SUMMARY
+    ====================================================== -->
+    <div class="details-card">
+
+      <div class="card-title">
+
+        <div class="title-icon">
+          💳
+        </div>
+
+        <div>
+
+          <h3>
+            Payment Summary
+          </h3>
+
+          <p>
+            Advance payment information
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- TOTAL -->
+
+      <div class="summary-row">
+
+        <span>
+          Total Purchase Amount
+        </span>
+
+        <strong>
+          ₹{{ totalamount | number:'1.2-2' }}
+        </strong>
+
+      </div>
+
+
+      <!-- ADVANCE -->
+
+      <div class="summary-row advance">
+
+        <span>
+          Advance Paid
+        </span>
+
+        <strong>
+          ₹{{ advamount | number:'1.2-2' }}
+        </strong>
+
+      </div>
+
+
+      <!-- REMAINING -->
+
+      <div class="summary-row remaining">
+
+        <span>
+          Remaining Amount
+        </span>
+
+        <strong>
+          ₹{{ remainingAmount | number:'1.2-2' }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         TRANSACTION DETAILS
+    ====================================================== -->
+    <div class="transaction-card">
+
+      <div class="transaction-title">
+
+        <div class="title-icon">
+          🔐
+        </div>
+
+        <div>
+
+          <h3>
+            Transaction Details
+          </h3>
+
+          <p>
+            Payment reference information
+          </p>
+
+        </div>
+
+      </div>
+
+
+     
+
+
+      <!-- TRANSACTION ID -->
+
+      <div class="transaction-row">
+
+        <span>
+          Transaction ID
+        </span>
+
+        <strong>
+          {{ transactionid || '-' }}
+        </strong>
+
+      </div>
+
+
+      <!-- PAYMENT DATE -->
+
+      <div class="transaction-row">
+
+        <span>
+          Payment Date
+        </span>
+
+        <strong>
+          {{ currentDate | date:'dd-MM-yyyy' }}
+        </strong>
+
+      </div>
+
+
+      <!-- PAYMENT STATUS -->
+
+      <div class="transaction-row">
+
+        <span>
+          Payment Status
+        </span>
+
+        <strong class="paid">
+          PAID
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SECURE MESSAGE
+    ====================================================== -->
+    <div class="secure-card">
+
+      <div class="secure-icon">
+        🔒
+      </div>
+
+      <div>
+
+        <strong>
+          Payment Successfully Recorded
+        </strong>
+
+        <p>
+          Your advance payment has been securely recorded.
+          Please keep the transaction ID for future reference.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         BUTTONS
+    ====================================================== -->
+    <div class="buttons">
+
+      <!-- DOWNLOAD RECEIPT -->
+
+      <button
+        type="button"
+        class="download-btn"
+        (click)="downloadReceipt()"
+      >
+
+        <span>⬇</span>
+
+        Download Receipt
+
+      </button>
+
+
+      <!-- BACK TO SENT REQUESTS -->
+
+      <button
+        type="button"
+        class="back-btn"
+        (click)="goBack()"
+      >
+
+        <span>←</span>
+
+        Back to Sent Requests
+
+      </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+    <div class="footer">
+
+      <p>
+        Thank you for using Agri Connect Kerala
+      </p>
+
+      <span>
+        Please keep your payment receipt for future reference.
+      </span>
+
+    </div>
+
+  </div>
+
+</div>

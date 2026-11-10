@@ -1,0 +1,193 @@
+<div class="container mt-5">
+
+  <div class="card receipt-card">
+
+    <div class="card-body">
+
+      <!-- HEADER -->
+
+      <div class="text-center">
+
+        <h2>
+          Agri Connect Kerala
+        </h2>
+
+        <p>
+          Agricultural Market Price Information and
+          Farmer Marketplace System
+        </p>
+
+      </div>
+
+
+      <hr>
+
+
+      <!-- PAYMENT SUCCESS -->
+
+      <div class="text-center success-section">
+
+        <h3>
+          ✓ Payment Successful
+        </h3>
+
+        <p>
+          Advance payment has been completed successfully.
+        </p>
+
+      </div>
+
+
+      <hr>
+
+
+      <!-- PRODUCT DETAILS -->
+
+      <h5>
+        Product Details
+      </h5>
+
+
+      <div class="detail-row">
+
+        <span>Product</span>
+
+        <b>
+          {{paymentData.productname}}
+        </b>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <span>Farmer</span>
+
+        <b>
+          {{paymentData.farmername}}
+        </b>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <span>Quantity</span>
+
+        <b>
+          {{paymentData.quantity}}
+          {{paymentData.unit}}
+        </b>
+
+      </div>
+
+
+      <hr>
+
+
+      <!-- PAYMENT DETAILS -->
+
+      <h5>
+        Payment Details
+      </h5>
+
+
+      <div class="detail-row">
+
+        <span>Total Amount</span>
+
+        <b>
+          ₹{{totalPrice}}
+        </b>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <span>Advance Paid</span>
+
+        <b>
+          ₹{{advanceamount}}
+        </b>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <span>Remaining Amount</span>
+
+        <b>
+          ₹{{remainingAmount}}
+        </b>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <span>Transaction ID</span>
+
+        <b>
+          {{paymentData.transactionid}}
+        </b>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <span>Payment Date</span>
+
+        <b>
+          {{paymentData.paymentdate | date:'dd-MM-yyyy'}}
+        </b>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <span>Payment Status</span>
+
+        <b>
+          {{paymentData.paymentstatus}}
+        </b>
+
+      </div>
+
+
+      <hr>
+
+
+      <!-- BUTTONS -->
+
+      <div class="text-center mt-4">
+
+      <button
+  class="btn btn-primary me-2"
+  (click)="downloadReceipt()">
+
+  Download Receipt
+
+</button>
+
+       <button
+  class="btn btn-secondary"
+  (click)="backToRequests()">
+
+  Back to Sent Requests
+
+</button>
+
+       
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>

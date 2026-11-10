@@ -1,0 +1,369 @@
+<div class="details-page" *ngIf="product">
+
+  <!-- Back Button -->
+  <button class="back-btn" (click)="goBack()">
+    ← Back to Products
+  </button>
+
+  <!-- PRODUCT DETAILS -->
+  <div class="details-card">
+
+    <!-- Product Image -->
+    <div class="image-section">
+      <img
+        [src]="'http://localhost:3000/images/' + product.image"
+        [alt]="product.productname"
+        class="product-image">
+    </div>
+
+    <!-- Product Information -->
+    <div class="info-section">
+
+      <!-- Category -->
+      <div class="category-badge">
+        {{ product.categoryname }}
+      </div>
+
+      <!-- Product Name -->
+      <h1>{{ product.productname }}</h1>
+
+      <p class="subtitle">
+        Agricultural product available from farmer
+      </p>
+
+      <!-- Price -->
+      <div class="price-box">
+        <span class="price-label">
+          Expected Price
+        </span>
+
+        <span class="price">
+          ₹{{ product.expectedprice }}
+        </span>
+
+        <span class="unit">
+          / {{ product.unit }}
+        </span>
+      </div>
+
+      <!-- Product Details -->
+      <div class="details-grid">
+
+        <!-- Quantity -->
+        <div class="detail-item">
+         
+
+          <div>
+            <small>Available Quantity</small>
+
+            <strong>
+              {{ product.quantity }} {{ product.unit }}
+            </strong>
+          </div>
+        </div>
+
+        <!-- Farmer -->
+        <div class="detail-item">
+        
+
+          <div>
+            <small>Farmer</small>
+
+            <strong>
+              {{ product.farmername }}
+            </strong>
+          </div>
+        </div>
+
+        <!-- Location -->
+        <div class="detail-item">
+        
+
+          <div>
+            <small>Location</small>
+
+            <strong>
+              {{ product.locationname }}
+            </strong>
+          </div>
+        </div>
+
+        <!-- District -->
+        <div class="detail-item">
+       
+
+          <div>
+            <small>District</small>
+
+            <strong>
+              {{ product.districtname }}
+            </strong>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Farmer Contact -->
+      <div class="farmer-contact">
+
+        <div>
+          <small>Farmer Contact</small>
+
+          <strong>
+             {{ product.phoneno }}
+          </strong>
+        </div>
+
+        <a
+          class="call-btn"
+          [href]="'tel:' + product.phoneno">
+
+          Call Farmer
+
+        </a>
+
+      </div>
+
+      <!-- Purchase Request -->
+      <div class="action-buttons">
+
+        <button
+          type="button"
+          class="request-btn"
+          (click)="sendPurchaseRequest()">
+
+          Send Purchase Request
+
+          <span>→</span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==========================================
+       CUSTOMER REVIEWS
+  =========================================== -->
+
+  <div class="customer-feedback-section">
+
+    <!-- Reviews Header -->
+    <div class="feedback-section-header">
+
+      <div>
+        <h2>
+          ⭐ Customer Reviews
+        </h2>
+
+        <p>
+          See what other customers say about this product.
+        </p>
+      </div>
+
+      <!-- Review Count -->
+      <div
+        class="review-count"
+        *ngIf="feedbackArray.length > 0">
+
+        {{ feedbackArray.length }}
+
+        {{
+          feedbackArray.length === 1
+            ? 'Review'
+            : 'Reviews'
+        }}
+
+      </div>
+
+    </div>
+
+
+    <!-- FEEDBACK LOADING -->
+    <div
+      class="feedback-loading"
+      *ngIf="feedbackLoading">
+
+      <div class="feedback-loader"></div>
+
+      <p>
+        Loading customer reviews...
+      </p>
+
+    </div>
+
+
+    <!-- FEEDBACK ERROR -->
+    <div
+      class="feedback-error"
+      *ngIf="
+        !feedbackLoading &&
+        feedbackError
+      ">
+
+      ⚠️ {{ feedbackError }}
+
+    </div>
+
+
+    <!-- NO REVIEWS -->
+    <div
+      class="no-feedback"
+      *ngIf="
+        !feedbackLoading &&
+        !feedbackError &&
+        feedbackArray.length === 0
+      ">
+
+      <div class="no-feedback-icon">
+        ⭐
+      </div>
+
+      <h3>
+        No Reviews Yet
+      </h3>
+
+      <p>
+        No customers have submitted feedback for this product yet.
+      </p>
+
+    </div>
+
+
+    <!-- ==========================================
+         REVIEW LIST
+    =========================================== -->
+
+    <div
+      class="feedback-list"
+      *ngIf="
+        !feedbackLoading &&
+        feedbackArray.length > 0
+      ">
+
+      <!-- Individual Review -->
+      <div
+        class="feedback-card"
+        *ngFor="let feedback of feedbackArray">
+
+        <!-- Customer Information -->
+        <div class="feedback-card-header">
+
+          <!-- Avatar -->
+          <div class="customer-avatar">
+
+            {{
+              feedback.buyername
+                ? feedback.buyername
+                    .charAt(0)
+                    .toUpperCase()
+                : 'C'
+            }}
+
+          </div>
+
+          <!-- Customer Name -->
+          <div class="customer-info">
+
+            <h4>
+              {{ feedback.buyername }}
+            </h4>
+
+            <small>
+              Customer
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <!-- Rating -->
+        <div class="feedback-rating">
+
+          <span
+            *ngFor="let star of [1,2,3,4,5]"
+            [class.filled]="feedback.rating >= star">
+
+            ★
+
+          </span>
+
+          <strong>
+            {{ feedback.rating }}/5
+          </strong>
+
+        </div>
+
+
+        <!-- ==========================================
+             PURCHASE QUANTITY
+        =========================================== -->
+
+        <div class="review-purchase-details">
+
+          <div class="review-detail">
+
+            <span>
+              Quantity Purchased
+            </span>
+
+            <strong>
+              {{ feedback.quantity }}
+              {{ feedback.unit }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- Feedback Message -->
+        <div class="feedback-text">
+
+          <p>
+            "{{ feedback.feedback }}"
+          </p>
+
+        </div>
+
+
+        <!-- Feedback Date -->
+        <div class="feedback-date">
+
+          📅
+
+          {{
+            feedback.feedbackdate
+              | date:'dd MMM yyyy'
+          }}
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ==========================================
+     PRODUCT LOADING
+=========================================== -->
+
+<div
+  class="loading"
+  *ngIf="!product">
+
+  <div class="loader"></div>
+
+  <p>
+    Loading product details...
+  </p>
+
+</div>

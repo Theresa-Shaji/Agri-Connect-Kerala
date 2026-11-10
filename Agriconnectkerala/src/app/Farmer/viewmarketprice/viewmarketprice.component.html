@@ -1,0 +1,342 @@
+<div class="container-fluid mt-4">
+
+  <div class="card shadow">
+
+    <!-- Header -->
+    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+
+      <h4 class="mb-0">
+        <i class="fa fa-leaf"></i>
+        View Market Price
+      </h4>
+
+      <span class="price-count">
+        {{ priceList.length }} Prices
+      </span>
+
+    </div>
+
+
+    <div class="card-body">
+
+      <!-- FILTER SECTION -->
+      <div class="filter-box">
+
+        <div class="row">
+
+          <!-- DISTRICT -->
+          <div class="col-md-4 mb-3">
+
+            <label>
+              <b>District</b>
+            </label>
+
+            <select
+              class="form-control"
+              [(ngModel)]="districtid"
+              (change)="getLocation()">
+
+              <option value="">
+                All Districts
+              </option>
+
+              <option
+                *ngFor="let d of districtList"
+                [value]="d.districtid">
+
+                {{ d.districtname }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- LOCATION -->
+          <div class="col-md-4 mb-3">
+
+            <label>
+              <b>Location</b>
+            </label>
+
+            <select
+              class="form-control"
+              [(ngModel)]="locationid">
+
+              <option value="">
+                All Locations
+              </option>
+
+              <option
+                *ngFor="let l of locationList"
+                [value]="l.locationid">
+
+                {{ l.locationname }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <!-- CATEGORY -->
+          <div class="col-md-4 mb-3">
+
+            <label>
+              <b>Product Category</b>
+            </label>
+
+            <select
+              class="form-control"
+              [(ngModel)]="categoryid">
+
+              <option value="">
+                All Categories
+              </option>
+
+              <option
+                *ngFor="let c of categoryList"
+                [value]="c.categoryid">
+
+                {{ c.categoryname }}
+
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+        <div class="text-center mt-2">
+
+          <button
+            type="button"
+            class="btn btn-success mr-2"
+            (click)="searchPrice()">
+
+            <i class="fa fa-search"></i>
+            Search Price
+
+          </button>
+
+
+          <button
+            type="button"
+            class="btn btn-outline-success"
+            (click)="clearFilters()">
+
+            <i class="fa fa-refresh"></i>
+            Clear Filters
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- INFORMATION -->
+      <div class="info-box mt-4">
+
+        <i class="fa fa-info-circle"></i>
+
+        Showing the latest market prices from registered shop owners.
+        Use the filters above to find prices by district, location or category.
+
+      </div>
+
+
+      <!-- TABLE -->
+      <div class="table-responsive mt-4">
+
+        <table class="table table-bordered table-hover">
+
+          <thead class="bg-success text-white">
+
+            <tr>
+
+              <th>#</th>
+
+              <th>District</th>
+
+              <th>Location</th>
+
+              <th>Shop Name</th>
+
+              <th>Shop Owner</th>
+
+              <th>Contact</th>
+
+              <th>Product</th>
+
+              <th>Buying Price</th>
+
+              <th>Unit</th>
+
+              <th>Updated Date</th>
+
+              <th>Trend</th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <tr
+              *ngFor="let price of priceList; let i = index">
+
+              <!-- NUMBER -->
+              <td>
+                {{ i + 1 }}
+              </td>
+
+
+              <!-- DISTRICT -->
+              <td>
+                {{ price.districtname }}
+              </td>
+
+
+              <!-- LOCATION -->
+              <td>
+                {{ price.locationname }}
+              </td>
+
+
+              <!-- SHOP -->
+              <td>
+                <b>
+                  {{ price.shopname }}
+                </b>
+              </td>
+
+
+              <!-- OWNER -->
+              <td>
+                {{ price.ownername }}
+              </td>
+
+
+              <!-- PHONE -->
+              <td>
+
+                <a
+                  href="tel:{{ price.phoneno }}"
+                  class="btn btn-primary btn-sm">
+
+                  <i class="fa fa-phone"></i>
+
+                  {{ price.phoneno }}
+
+                </a>
+
+              </td>
+
+
+              <!-- PRODUCT -->
+              <td>
+                <b>
+                  {{ price.categoryname }}
+                </b>
+              </td>
+
+
+              <!-- PRICE -->
+              <td>
+
+                <span class="price">
+
+                  ₹ {{ price.price }}
+
+                </span>
+
+              </td>
+
+
+              <!-- UNIT -->
+              <td>
+                {{ price.unit }}
+              </td>
+
+
+              <!-- DATE -->
+              <td>
+
+                {{ price.updatedate | date:'dd-MM-yyyy' }}
+
+              </td>
+
+
+              <!-- TREND -->
+              <td>
+
+                <span
+                  class="badge bg-success"
+                  *ngIf="price.trend == 'Increase'">
+
+                  ↑ Increase
+
+                </span>
+
+
+                <span
+                  class="badge bg-danger"
+                  *ngIf="price.trend == 'Decrease'">
+
+                  ↓ Decrease
+
+                </span>
+
+
+                <span
+                  class="badge bg-warning text-dark"
+                  *ngIf="price.trend == 'Stable'">
+
+                  → Stable
+
+                </span>
+
+              </td>
+
+            </tr>
+
+
+            <!-- NO DATA -->
+            <tr *ngIf="priceList.length == 0">
+
+              <td
+                colspan="11"
+                class="text-center no-data">
+
+                <i class="fa fa-search fa-2x"></i>
+
+                <h5>
+                  No Market Price Found
+                </h5>
+
+                <p>
+                  Try changing the filters.
+                </p>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

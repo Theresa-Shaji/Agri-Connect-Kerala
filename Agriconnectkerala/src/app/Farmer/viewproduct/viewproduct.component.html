@@ -1,0 +1,146 @@
+<div class="container mt-4">
+
+    <h2 class="text-center text-success mb-4">
+        🌾 My Products
+    </h2>
+
+    <div class="row">
+
+        <div class="col-lg-4 col-md-6 mb-4"
+             *ngFor="let p of productArray">
+
+            <div class="card shadow-lg h-100 border-0">
+
+                <img
+                [src]="'http://localhost:3000/images/'+p.image"
+                class="card-img-top"
+                style="height:250px;object-fit:cover;">
+
+                <div class="card-body">
+
+                    <h4 class="text-success">
+
+                        {{p.productname}}
+
+                    </h4>
+
+                    <hr>
+
+                    <p>
+
+                        <strong>Category :</strong>
+
+                        {{p.categoryname}}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Quantity :</strong>
+
+                        {{p.quantity}} {{p.unit}}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Quality :</strong>
+
+                        {{p.quality}}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Expected Price :</strong>
+
+                        ₹{{p.expectedprice}}
+
+                    </p>
+
+                    <p>
+
+                        <strong>District :</strong>
+
+                        {{p.districtname}}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Location :</strong>
+
+                        {{p.locationname}}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Upload Date :</strong>
+
+                        {{p.uploaddate | date:'dd-MM-yyyy'}}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Status :</strong>
+
+                        <span
+                        class="badge bg-success"
+                        *ngIf="p.status=='Available'">
+
+                            {{p.status}}
+
+                        </span>
+
+                        <span
+                        class="badge bg-danger"
+                        *ngIf="p.status=='Sold'">
+
+                            {{p.status}}
+
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        <strong>Description</strong>
+
+                    </p>
+
+                    <p>
+
+                        {{p.description}}
+
+                    </p>
+
+                </div>
+
+                <div class="card-footer bg-white text-center">
+
+                   <button
+type="button"
+class="btn btn-warning me-2"
+(click)="editProduct(p.productid)">
+
+    ✏ Edit
+
+</button>
+                   
+<button type="button" class="btn btn-danger" (click)="deleteProduct(p.productid)">
+
+🗑 Delete
+
+</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

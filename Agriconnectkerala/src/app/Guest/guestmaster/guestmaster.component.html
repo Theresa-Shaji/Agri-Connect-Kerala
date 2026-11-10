@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Agri Connect Kerala</title>
+
+  <link href="/assets/Guest/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/Guest/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/Guest/css/main.css" rel="stylesheet">
+</head>
+
+<body class="index-page">
+
+  <!-- Header -->
+  <header id="header" class="header d-flex align-items-center position-relative">
+
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="#" class="logo d-flex align-items-center">
+
+      <img 
+  src="assets/Images/logo.png" 
+  alt="Agriconnect Kerala" 
+  style="height:80px;width:auto;">
+
+<div class="ms-2">
+  <small style="color:#2e7d32; font-size:15px; font-weight:500;">
+    Connecting Farmers • Dealers • Shop Owners
+  </small>
+</div>
+
+      </a>
+
+     <nav id="navmenu" class="navmenu">
+
+  <ul>
+
+    <li>
+      <a routerLink="/guestmaster/guesthome">
+        Home
+      </a>
+    </li>
+    <li>
+      <li><a href="#about">About Us</a></li>
+
+    <li class="dropdown">
+      <a href="#">
+        <span>Registrations</span>
+        <i class="bi bi-chevron-down toggle-dropdown"></i>
+      </a>
+
+      <ul>
+
+        <li>
+          <a routerLink="/guestmaster/farmerreg">
+            Farmer Registration
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/guestmaster/shopownerreg">
+            Shop Owner Registration
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/guestmaster/buyerreg">
+            Buyer Registration
+          </a>
+        </li>
+
+      </ul>
+    </li>
+<li>
+  <a href="#services-2">Categories</a>
+</li>
+<li><a href="#how-it-works">How It Works</a></li>
+<!-- <li><a href="#contact">Contact Us</a></li> -->
+    <li>
+      <a routerLink="/guestmaster/login">
+        Logout
+      </a>
+    </li>
+
+  </ul>
+
+  <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+
+</nav>
+
+    </div>
+
+  </header>
+
+  <!-- IMPORTANT : ONLY ONE ROUTER OUTLET -->
+
+  <router-outlet></router-outlet>
+
+  <!-- Footer -->
+
+  <footer id="footer" class="footer dark-background">
+
+    <div class="footer-top">
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <!-- About -->
+
+          <div class="col-lg-4 col-md-6 footer-about">
+
+            <h4>Agri Connect Kerala [ACK]</h4>
+
+            <p>
+              Agri Connect Kerala is a digital agricultural marketplace
+              connecting farmers, dealers and shop owners across Kerala.
+            </p>
+
+            <p class="mt-3">
+              A smart platform for product trading, market price updates
+              and purchase management.
+            </p>
+
+          </div>
+
+          <!-- Features -->
+
+          <div class="col-lg-4 col-md-6">
+
+            <h4>Our Features</h4>
+
+            <ul class="footer-links">
+
+              <li>Farmer Registration</li>
+              <li>Dealer Network</li>
+              <li>Market Price Updates</li>
+              <li>Product Management</li>
+              <li>Purchase Requests</li>
+
+            </ul>
+
+          </div>
+
+          <!-- Contact -->
+
+          <div class="col-lg-4 col-md-12">
+
+            <h4>Contact Us</h4>
+
+            <p>
+              <strong>Phone:</strong> 8281796478
+            </p>
+
+            <p>
+              <strong>Email:</strong> agriconnectkerala25@gmail.com
+            </p>
+
+            <p>
+              <strong>Location:</strong> Kerala, India
+            </p>
+
+            <div class="social-links mt-3">
+
+              <a
+                href="https://www.linkedin.com/in/theresa-shaji"
+                target="_blank">
+
+                <i class="bi bi-linkedin"></i>
+
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <hr>
+
+        <div class="text-center copyright">
+
+          <p>
+            © 2026
+            <strong>Agri Connect Kerala</strong>.
+            All Rights Reserved.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+  <a
+    href="#"
+    id="scroll-top"
+    class="scroll-top d-flex align-items-center justify-content-center">
+
+    <i class="bi bi-arrow-up-short"></i>
+
+  </a>
+
+</body>
+
+</html>

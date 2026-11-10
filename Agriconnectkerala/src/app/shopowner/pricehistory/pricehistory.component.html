@@ -1,0 +1,137 @@
+<!-- History -->
+
+<div class="history-item"
+*ngFor="let item of groupedArray">
+
+    <!-- Product Header -->
+
+    <div class="product-history-header">
+
+        <div class="product-details">
+
+          <div class="product-icon">
+
+    <img
+    [src]="'http://localhost:3000/images/' + item.image"
+    alt="Category Image">
+
+</div>
+
+            <div>
+
+                <h4 class="mb-1">
+                    {{item.categoryname}}
+                </h4>
+
+                <span class="latest-badge">
+                    Latest Price :
+                    ₹{{item.latestPrice}} / {{item.unit}}
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Previous Updates -->
+
+    <h5 class="history-title">
+
+        <i class="fa fa-history"></i>
+
+        Price History
+
+    </h5>
+
+    <table class="table table-hover">
+
+        <thead class="table-success">
+
+            <tr>
+
+                <th>Date</th>
+
+                <th>Price</th>
+
+                <th>Unit</th>
+
+                <th>Status</th>
+
+                <th>Action</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr
+            *ngFor="let h of item.history;let i=index"
+            [class.current-row]="i==0">
+
+                <td>
+                    {{h.updatedate | date:'dd MMM yyyy'}}
+                </td>
+
+                <td>
+                    ₹{{h.price}}
+                </td>
+
+                <td>
+                    {{h.unit}}
+                </td>
+
+                <td>
+
+                    <span
+                    class="badge"
+
+                    [ngClass]="{
+
+                    'bg-success':
+                    h.trend=='Increase',
+
+                    'bg-danger':
+                    h.trend=='Decrease',
+
+                    'bg-warning text-dark':
+                    h.trend=='Stable'
+
+                    }">
+
+                    {{h.trend}}
+
+                    </span>
+
+                </td>
+
+      <td>
+
+<button
+class="btn btn-primary action-btn"
+[routerLink]="['/shopownermaster/editpriceupdate', h.priceid]">
+
+    <i class="fa fa-edit"></i>
+    Edit
+
+</button>
+
+<button
+class="btn btn-danger action-btn"
+(click)="deletePrice(h.priceid)">
+
+    <i class="fa fa-trash"></i>
+    Delete
+
+</button>
+
+</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>

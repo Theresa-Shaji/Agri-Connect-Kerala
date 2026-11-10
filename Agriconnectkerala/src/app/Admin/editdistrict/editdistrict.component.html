@@ -1,0 +1,39 @@
+<div class="main-panel">
+    <div class="content-wrapper">
+      <!-- <button class="btn btn-primary" style="margin-left:1000px;" [routerLink]="['/adminmaster/serviceview']">View </button> -->
+  
+      <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+          <div class="card">
+  
+            <div class="card-body">
+              <div class="row" style="padding-left: 800px;">
+                <button class="btn btn-primary" [routerLink]="['/adminmaster/districtview']">View Data</button>
+  
+              </div>
+                <h4 class="card-title"> Edit District Registration</h4>
+                <!-- <p class="card-description">
+                  Basic form layout
+                </p> -->
+                <form class="forms-sample" [formGroup]="editdistrict">
+                    <input type="hidden" formControlName="districtid">
+                  <div class="form-group">
+                    <label for="exampleInputUsername1">District</label>
+                    <input type="text" class="form-control" id="exampleInputUsername1" formControlName="DistrictName" placeholder="District Name">
+                  </div>
+                  
+                 
+                  
+                  <div class="form-check form-check-flat form-check-primary">
+                    <label class="form-check-label">
+                     
+                    </label>
+                  </div>
+                  <button type="submit" class="btn btn-primary mr-2" (click)="Onsubmit()">Submit</button>
+                  <button class="btn btn-light">Cancel</button>
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+  

@@ -1,0 +1,31 @@
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <button class="btn btn-primary" style="margin-left:1000px;" [routerLink]="['/adminmaster/locationview']">View Data</button>
+        <h4 class="card-title">Edit Location Registration</h4>
+        <p class="card-description">
+         
+        </p>
+        <form class="forms-sample" [formGroup]="editlocation">
+            <input type="hidden" formControlName="locationid">
+  
+          <!-- <div class="card-body">
+            <div class="row" style="padding-left: 800px;">
+              <button class="btn btn-primary" [routerLink]="['/adminmaster/districtview']">View Data</button> -->
+          
+          <div class="form-group">
+            <label for="exampleSelectGender"><strong>District</strong></label>
+              <input type="text" formControlName="districtid" readonly>
+                
+           </div>
+           
+           <div class="form-group">
+            <label for="exampleInputName1">Location Name</label>
+            <input type="text" class="form-control" id="exampleInputName1" formControlName="LocationName" placeholder="Location Name">
+          </div>
+          <button type="submit" class="btn btn-primary mr-2" (click)="Onsubmit()">Submit</button>
+          <button class="btn btn-light">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>

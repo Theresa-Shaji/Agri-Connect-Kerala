@@ -1,0 +1,667 @@
+<div class="payment-report-page">
+
+  <!-- ==========================================
+       HEADER
+  =========================================== -->
+
+  <div class="report-header">
+
+    <div>
+
+      <h2>
+        <i class="bi bi-credit-card"></i>
+        Payment Report
+      </h2>
+
+      <p>
+        View payment details received for your products
+      </p>
+
+    </div>
+
+    <button
+      type="button"
+      class="print-btn"
+      (click)="printReport()">
+
+      <i class="bi bi-printer"></i>
+      Print Report
+
+    </button>
+
+  </div>
+
+
+  <!-- ==========================================
+       SUMMARY
+  =========================================== -->
+
+  <div class="summary-grid">
+
+    <!-- TOTAL PAYMENTS -->
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+        <i class="bi bi-credit-card-2-front"></i>
+      </div>
+
+      <div>
+
+        <h3>
+          {{ totalPayments }}
+        </h3>
+
+        <p>
+          Total Payments
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- PAID -->
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+        <i class="bi bi-check-circle"></i>
+      </div>
+
+      <div>
+
+        <h3>
+          {{ paidPayments }}
+        </h3>
+
+        <p>
+          Paid
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- PENDING -->
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+        <i class="bi bi-clock-history"></i>
+      </div>
+
+      <div>
+
+        <h3>
+          {{ pendingPayments }}
+        </h3>
+
+        <p>
+          Pending
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- TOTAL ADVANCE -->
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+        <i class="bi bi-currency-rupee"></i>
+      </div>
+
+      <div>
+
+        <h3>
+          ₹{{ totalAdvance | number:'1.2-2' }}
+        </h3>
+
+        <p>
+          Total Advance
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==========================================
+       FILTER
+  =========================================== -->
+
+  <div class="filter-card">
+
+    <div class="filter-title">
+
+      <i class="bi bi-funnel"></i>
+
+      Filter Payments
+
+    </div>
+
+
+    <div class="filter-grid">
+
+      <!-- FROM DATE -->
+
+      <div class="filter-group">
+
+        <label>
+          From Date
+        </label>
+
+        <input
+          type="date"
+          [(ngModel)]="fromdate"
+          (change)="applyFilter()">
+
+      </div>
+
+
+      <!-- TO DATE -->
+
+      <div class="filter-group">
+
+        <label>
+          To Date
+        </label>
+
+        <input
+          type="date"
+          [(ngModel)]="todate"
+          (change)="applyFilter()">
+
+      </div>
+
+
+      <!-- BUYER TYPE -->
+
+      <div class="filter-group">
+
+        <label>
+          Buyer Type
+        </label>
+
+        <select
+          [(ngModel)]="selectedBuyerType"
+          (change)="applyFilter()">
+
+          <option value="All">
+            All
+          </option>
+
+          <option value="Shop Owner">
+            Shop Owner
+          </option>
+
+          <option value="Buyer">
+            Buyer
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- PAYMENT STATUS -->
+
+      <div class="filter-group">
+
+        <label>
+          Payment Status
+        </label>
+
+        <select
+          [(ngModel)]="selectedPaymentStatus"
+          (change)="applyFilter()">
+
+          <option value="All">
+            All
+          </option>
+
+          <option value="Paid">
+            Paid
+          </option>
+
+          <option value="Pending">
+            Pending
+          </option>
+
+          <option value="Failed">
+            Failed
+          </option>
+
+          <option value="Rejected">
+            Rejected
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- CLEAR -->
+
+      <div class="filter-buttons">
+
+        <button
+          type="button"
+          class="clear-btn"
+          (click)="clearFilter()">
+
+          <i class="bi bi-x-circle"></i>
+
+          Clear
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ==========================================
+       TABLE
+  =========================================== -->
+
+  <div class="table-card">
+
+    <div class="table-header">
+
+      <div>
+
+        <h3>
+          Payment Details
+        </h3>
+
+        <p>
+          Payments received from buyers and shop owners
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         LOADING
+    =========================================== -->
+
+    <div
+      class="loading"
+      *ngIf="loading">
+
+      <i class="bi bi-arrow-repeat"></i>
+
+      Loading payment report...
+
+    </div>
+
+
+    <!-- ==========================================
+         TABLE
+    =========================================== -->
+
+    <div
+      class="table-responsive"
+      *ngIf="
+        !loading &&
+        filteredPaymentArray.length > 0
+      ">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Product
+            </th>
+
+            <th>
+              Buyer Type
+            </th>
+
+            <th>
+              Buyer / Shop
+            </th>
+
+            <th>
+              Phone
+            </th>
+
+            <th>
+              Quantity
+            </th>
+
+            <th>
+              Offered Price
+            </th>
+
+            <th>
+              Total Amount
+            </th>
+
+            <th>
+              Advance Paid
+            </th>
+
+            <th>
+              Payment Date
+            </th>
+
+            <th>
+              Payment Status
+            </th>
+
+            <th>
+              Transaction ID
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr
+            *ngFor="
+              let item of filteredPaymentArray
+            ">
+
+
+            <!-- ==================================
+                 PRODUCT
+            =================================== -->
+
+            <td>
+
+              <div class="product-name">
+
+                <i class="bi bi-box"></i>
+
+                <strong>
+                  {{ item.productname || '-' }}
+                </strong>
+
+              </div>
+
+            </td>
+
+
+            <!-- ==================================
+                 BUYER TYPE
+            =================================== -->
+
+            <td>
+
+              <span
+                class="buyer-type"
+                [ngClass]="
+                  getBuyerTypeClass(
+                    item.buyertype
+                  )
+                ">
+
+                {{ item.buyertype || '-' }}
+
+              </span>
+
+            </td>
+
+
+            <!-- ==================================
+                 BUYER / SHOP
+            =================================== -->
+
+            <td>
+
+              <div class="buyer-details">
+
+                <!-- SHOP OWNER -->
+
+                <ng-container
+                  *ngIf="
+                    item.buyertype === 'Shop Owner'
+                  ">
+
+                  <strong>
+
+                    {{ item.shopname || '-' }}
+
+                  </strong>
+
+                  <small>
+
+                    {{ item.ownername || '-' }}
+
+                  </small>
+
+                </ng-container>
+
+
+                <!-- BUYER -->
+
+                <ng-container
+                  *ngIf="
+                    item.buyertype === 'Buyer'
+                  ">
+
+                  <strong>
+
+                    {{ item.buyername || '-' }}
+
+                  </strong>
+
+                  <small>
+
+                    {{ item.buyeremail || '-' }}
+
+                  </small>
+
+                </ng-container>
+
+
+                <!-- UNKNOWN -->
+
+                <ng-container
+                  *ngIf="
+                    item.buyertype !== 'Shop Owner' &&
+                    item.buyertype !== 'Buyer'
+                  ">
+
+                  <strong>
+                    -
+                  </strong>
+
+                </ng-container>
+
+              </div>
+
+            </td>
+
+
+            <!-- ==================================
+                 PHONE
+            =================================== -->
+
+            <td>
+
+              {{
+                item.displayphone ||
+                item.buyerphone ||
+                item.shopownerphone ||
+                '-'
+              }}
+
+            </td>
+
+
+            <!-- ==================================
+                 QUANTITY
+            =================================== -->
+
+            <td>
+
+              <strong>
+
+                {{ item.quantity || 0 }}
+
+              </strong>
+
+              <span class="unit">
+
+                {{ item.unit || '' }}
+
+              </span>
+
+            </td>
+
+
+            <!-- ==================================
+                 OFFERED PRICE
+            =================================== -->
+
+            <td>
+
+              <span class="amount">
+
+                ₹{{ item.offeredprice | number:'1.2-2' }}
+
+              </span>
+
+              <small>
+                / {{ item.unit || 'Kg' }}
+              </small>
+
+            </td>
+
+
+            <!-- ==================================
+                 TOTAL AMOUNT
+            =================================== -->
+
+            <td>
+
+              <span class="amount">
+
+                ₹{{ item.totalamount | number:'1.2-2' }}
+
+              </span>
+
+            </td>
+
+
+            <!-- ==================================
+                 ADVANCE
+            =================================== -->
+
+            <td>
+
+              <span class="advance">
+
+                ₹{{ item.advamount | number:'1.2-2' }}
+
+              </span>
+
+            </td>
+
+
+            <!-- ==================================
+                 PAYMENT DATE
+            =================================== -->
+
+            <td>
+
+              {{
+                item.paymentdate
+                  | date:'dd-MM-yyyy'
+              }}
+
+            </td>
+
+
+            <!-- ==================================
+                 PAYMENT STATUS
+            =================================== -->
+
+            <td>
+
+              <span
+                class="status"
+                [ngClass]="
+                  getPaymentStatusClass(
+                    item.paymentstatus
+                  )
+                ">
+
+                {{ item.paymentstatus || '-' }}
+
+              </span>
+
+            </td>
+
+
+            <!-- ==================================
+                 TRANSACTION ID
+            =================================== -->
+
+            <td>
+
+              <span class="transaction-id">
+
+                {{
+                  item.transactionid || '-'
+                }}
+
+              </span>
+
+            </td>
+
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+    <!-- ==========================================
+         NO DATA
+    =========================================== -->
+
+    <div
+      class="no-data"
+      *ngIf="
+        !loading &&
+        filteredPaymentArray.length === 0
+      ">
+
+      <i class="bi bi-credit-card"></i>
+
+      <h3>
+        No Payment Records Found
+      </h3>
+
+      <p>
+        No payments match the selected filters.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,325 @@
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-header bg-success text-white text-center">
+
+                    <h2 class="mb-0">🌾 Farmer Registration</h2>
+
+                    <p class="mb-0">Join Agri Connect Kerala</p>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form #f="ngForm">
+
+                        <div class="row">
+
+                            <!-- Farmer Name -->
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">Farmer Name</label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [(ngModel)]="farmer.name"
+                                    name="name"
+                                    #name="ngModel"
+                                    required
+                                    pattern="[A-Za-z ]+"
+                                    placeholder="Enter Farmer Name">
+
+                                <small class="text-danger"
+                                    *ngIf="name.invalid && name.touched">
+
+                                    Enter a valid Farmer Name
+
+                                </small>
+
+                            </div>
+
+                            <!-- Email -->
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">Email</label>
+
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    [(ngModel)]="farmer.email"
+                                    name="email"
+                                    #email="ngModel"
+                                    required
+                                    email
+                                    placeholder="Enter Email">
+
+                                <small class="text-danger"
+                                    *ngIf="email.invalid && email.touched">
+
+                                    Enter a valid Email
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <!-- Phone -->
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">Phone Number</label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [(ngModel)]="farmer.phone"
+                                    name="phone"
+                                    #phone="ngModel"
+                                    required
+                                    pattern="[0-9]{10}"
+                                    maxlength="10"
+                                    placeholder="Enter Phone Number">
+
+                                <small class="text-danger"
+                                    *ngIf="phone.invalid && phone.touched">
+
+                                    Enter a valid 10-digit Phone Number
+
+                                </small>
+
+                            </div>
+
+                            <!-- Registration Date -->
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">Registration Date</label>
+
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    [(ngModel)]="farmer.regdate"
+                                    name="regdate"
+                                    readonly>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <!-- District -->
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">District</label>
+
+                                <select
+                                    class="form-select"
+                                    [(ngModel)]="farmer.districtid"
+                                    name="districtid"
+                                    #districtid="ngModel"
+                                    required
+                                    (change)="loadLocation()">
+
+                                    <option value="">Select District</option>
+
+                                    <option
+                                        *ngFor="let d of districtArray"
+                                        [value]="d.districtid">
+
+                                        {{d.districtname}}
+
+                                    </option>
+
+                                </select>
+
+                                <small class="text-danger"
+                                    *ngIf="districtid.invalid && districtid.touched">
+
+                                    Select District
+
+                                </small>
+
+                            </div>
+
+                            <!-- Location -->
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">Location</label>
+
+                                <select
+                                    class="form-select"
+                                    [(ngModel)]="farmer.locationid"
+                                    name="locationid"
+                                    #locationid="ngModel"
+                                    required>
+
+                                    <option value="">Select Location</option>
+
+                                    <option
+                                        *ngFor="let l of locationArray"
+                                        [value]="l.locationid">
+
+                                        {{l.locationname}}
+
+                                    </option>
+
+                                </select>
+
+                                <small class="text-danger"
+                                    *ngIf="locationid.invalid && locationid.touched">
+
+                                    Select Location
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Address -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">Address</label>
+
+                            <textarea
+                                class="form-control"
+                                rows="3"
+                                [(ngModel)]="farmer.address"
+                                name="address"
+                                #address="ngModel"
+                                required
+                                placeholder="Enter Address"></textarea>
+
+                            <small class="text-danger"
+                                *ngIf="address.invalid && address.touched">
+
+                                Address is required
+
+                            </small>
+
+                        </div>
+
+                        <div class="row">
+
+                            <!-- Username -->
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">Username</label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    [(ngModel)]="farmer.username"
+                                    name="username"
+                                    #username="ngModel"
+                                    required
+                                    placeholder="Enter Username">
+
+                                <small class="text-danger"
+                                    *ngIf="username.invalid && username.touched">
+
+                                    Username is required
+
+                                </small>
+
+                            </div>
+
+                            <!-- Password -->
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">Password</label>
+
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    [(ngModel)]="farmer.password"
+                                    name="password"
+                                    #password="ngModel"
+                                    required
+                                    minlength="6"
+                                    placeholder="Enter Password">
+
+                                <small class="text-danger"
+                                    *ngIf="password.errors?.['required'] && password.touched">
+
+                                    Password is required
+
+                                </small>
+
+                                <small class="text-danger"
+                                    *ngIf="password.errors?.['minlength']">
+
+                                    Minimum 6 characters required
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Image -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">Farmer Photo</label>
+
+                            <input
+                                type="file"
+                                class="form-control"
+                                (change)="uploadImage($event)"
+                                required>
+
+                        </div>
+
+                        <!-- Buttons -->
+
+                        <div class="text-center">
+
+                            <button
+                                type="button"
+                                class="btn btn-success px-5"
+                                [disabled]="f.invalid"
+                                (click)="register()">
+
+                                Register
+
+                            </button>
+
+                            <button
+                                type="reset"
+                                class="btn btn-secondary px-5 ms-2">
+
+                                Reset
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

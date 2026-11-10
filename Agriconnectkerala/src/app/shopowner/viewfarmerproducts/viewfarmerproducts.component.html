@@ -1,0 +1,101 @@
+<div class="container mt-4">
+
+  <h2 class="text-success text-center mb-4">
+    Available Farmer Products
+  </h2>
+
+
+  <div class="row">
+
+
+    <div class="col-md-4 mb-4" *ngFor="let p of productArray">
+
+
+      <div class="card shadow">
+
+
+        <img 
+        [src]="'http://localhost:3000/images/'+p.image"
+        class="card-img-top product-image">
+
+
+        <div class="card-body">
+
+
+          <h5 class="text-success">
+            {{p.productname}}
+          </h5>
+
+
+          <p>
+            <b>Category:</b> {{p.categoryname}}
+          </p>
+
+
+          <p>
+            <b>Quantity:</b> {{p.quantity}} {{p.unit}}
+          </p>
+
+
+          <p>
+            <b>Quality:</b> {{p.quality}}
+          </p>
+
+
+          <p>
+            <b>Expected Price:</b> ₹{{p.expectedprice}}
+          </p>
+
+
+          <p>
+            <b>District:</b> {{p.districtname}}
+          </p>
+
+
+          <p>
+            <b>Location:</b> {{p.locationname}}
+          </p>
+
+
+          <hr>
+
+
+          <h6>
+            Farmer Details
+          </h6>
+
+
+          <p>
+            <b>Name:</b> {{p.farmername}}
+          </p>
+
+
+          <!-- Phone hidden until request accepted -->
+          <p>
+            <b>Contact:</b> Available after request acceptance
+          </p>
+
+
+          <button 
+          class="btn btn-primary w-100"
+          (click)="sendRequest(p.productid,p.farmerid)">
+
+            <i class="fa fa-shopping-cart"></i>
+            Send Purchase Request
+
+          </button>
+
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+</div>

@@ -1,0 +1,351 @@
+<div class="buyer-registration-page">
+
+  <div class="registration-card">
+
+    <!-- Header -->
+    <div class="registration-header">
+      <div class="header-icon">🌾</div>
+
+      <div>
+        <h2>Buyer Registration</h2>
+        <p>Create your AgriConnect Kerala account</p>
+      </div>
+    </div>
+
+
+    <form
+      #buyerForm="ngForm"
+      (ngSubmit)="registerBuyer()"
+      novalidate>
+
+
+      <!-- ================= PERSONAL DETAILS ================= -->
+
+      <div class="section-title">
+        <span></span>
+        Personal Details
+      </div>
+
+      <div class="form-row">
+
+        <!-- Name -->
+        <div class="form-group">
+
+          <label>
+            Full Name <span>*</span>
+          </label>
+
+          <input
+            type="text"
+            name="name"
+            [(ngModel)]="buyer.name"
+            #name="ngModel"
+            placeholder="Enter your full name"
+            minlength="3"
+            maxlength="50"
+            pattern="^[A-Za-z ]+$"
+            required>
+
+          <small
+            class="error"
+            *ngIf="submitted && name.invalid">
+
+            Enter a valid name using letters only.
+
+          </small>
+
+        </div>
+
+
+        <!-- Email -->
+        <div class="form-group">
+
+          <label>
+            Email Address <span>*</span>
+          </label>
+
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="buyer.email"
+            #email="ngModel"
+            placeholder="example@gmail.com"
+            required>
+
+          <small
+            class="error"
+            *ngIf="submitted && !isValidEmail()">
+
+            Enter a valid email address.
+
+          </small>
+
+        </div>
+
+
+        <!-- Phone -->
+        <div class="form-group">
+
+          <label>
+            Phone Number <span>*</span>
+          </label>
+
+          <input
+            type="text"
+            name="phone"
+            [(ngModel)]="buyer.phone"
+            #phone="ngModel"
+            placeholder="10 digit mobile number"
+            maxlength="10"
+            required>
+
+          <small
+            class="error"
+            *ngIf="submitted && !isValidPhone()">
+
+            Enter a valid 10-digit mobile number.
+
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================= LOCATION DETAILS ================= -->
+
+      <div class="section-title">
+        <span></span>
+        Location Details
+      </div>
+
+      <div class="form-row">
+
+        <!-- District -->
+        <div class="form-group">
+
+          <label>
+            District <span>*</span>
+          </label>
+
+          <select
+            name="districtid"
+            [(ngModel)]="buyer.districtid"
+            (change)="getLocation()"
+            required>
+
+            <option value="">
+              Select District
+            </option>
+
+            <option
+              *ngFor="let d of districtArray"
+              [value]="d.districtid">
+
+              {{ d.districtname }}
+
+            </option>
+
+          </select>
+
+          <small
+            class="error"
+            *ngIf="submitted && !buyer.districtid">
+
+            Please select a district.
+
+          </small>
+
+        </div>
+
+
+        <!-- Location -->
+        <div class="form-group">
+
+          <label>
+            Location <span>*</span>
+          </label>
+
+          <select
+            name="locationid"
+            [(ngModel)]="buyer.locationid"
+            required>
+
+            <option value="">
+              Select Location
+            </option>
+
+            <option
+              *ngFor="let l of locationArray"
+              [value]="l.locationid">
+
+              {{ l.locationname }}
+
+            </option>
+
+          </select>
+
+          <small
+            class="error"
+            *ngIf="submitted && !buyer.locationid">
+
+            Please select a location.
+
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- Address -->
+      <div class="form-group full-width">
+
+        <label>
+          Address <span>*</span>
+        </label>
+
+        <textarea
+          name="address"
+          [(ngModel)]="buyer.address"
+          #address="ngModel"
+          rows="3"
+          minlength="5"
+          maxlength="250"
+          placeholder="Enter your complete address"
+          required>
+        </textarea>
+
+        <small
+          class="error"
+          *ngIf="submitted && address.invalid">
+
+          Please enter a valid address.
+
+        </small>
+
+      </div>
+
+
+      <!-- ================= ACCOUNT DETAILS ================= -->
+
+      <div class="section-title">
+        <span></span>
+        Account Details
+      </div>
+
+      <div class="form-row">
+
+        <!-- Username -->
+        <div class="form-group">
+
+          <label>
+            Username <span>*</span>
+          </label>
+
+          <input
+            type="text"
+            name="username"
+            [(ngModel)]="buyer.username"
+            #username="ngModel"
+            placeholder="Create username"
+            minlength="5"
+            maxlength="30"
+            pattern="^[A-Za-z][A-Za-z0-9_]*$"
+            required>
+
+          <small
+            class="hint"
+            *ngIf="!submitted || username.valid">
+
+            Start with a letter. Use letters, numbers or _.
+
+          </small>
+
+          <small
+            class="error"
+            *ngIf="submitted && username.invalid">
+
+            Username must start with a letter and contain at least
+            5 characters.
+
+          </small>
+
+        </div>
+
+
+        <!-- Password -->
+        <div class="form-group">
+
+          <label>
+            Password <span>*</span>
+          </label>
+
+          <div class="password-box">
+
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              name="password"
+              [(ngModel)]="buyer.password"
+              #password="ngModel"
+              placeholder="Create strong password"
+              required>
+
+            <button
+              type="button"
+              class="show-password"
+              (click)="showPassword = !showPassword">
+
+              {{ showPassword ? 'Hide' : 'Show' }}
+
+            </button>
+
+          </div>
+
+          <small
+            class="hint"
+            *ngIf="!submitted || isValidPassword()">
+
+            8+ characters • uppercase • lowercase • number • special character
+
+          </small>
+
+          <small
+            class="error"
+            *ngIf="submitted && !isValidPassword()">
+
+            Password must contain 8+ characters, uppercase, lowercase,
+            number and special character.
+
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================= BUTTON ================= -->
+
+      <div class="button-area">
+
+        <button
+          type="submit"
+          class="register-btn">
+
+          <span></span>
+          Register Buyer
+
+        </button>
+
+      </div>
+
+
+      <p class="required-note">
+        <span>*</span> Required fields
+      </p>
+
+    </form>
+
+  </div>
+
+</div>

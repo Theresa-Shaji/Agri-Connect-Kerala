@@ -1,0 +1,323 @@
+<div class="page-container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div>
+      <h2>Send Purchase Request</h2>
+      <p>Send your purchase requirement to the farmer</p>
+    </div>
+  </div>
+
+
+  <div class="request-wrapper" *ngIf="product">
+
+
+    <!-- Product Details -->
+    <div class="product-section">
+
+      <div class="product-image">
+        <img
+          [src]="'http://localhost:3000/images/' + product.image"
+          [alt]="product.productname">
+      </div>
+
+
+      <div class="product-details">
+
+        <span class="category">
+          {{ product.categoryname }}
+        </span>
+
+        <h2>
+          {{ product.productname }}
+        </h2>
+
+        <p class="farmer">
+          Farmer: <strong>{{ product.farmername }}</strong>
+        </p>
+
+
+        <div class="info-grid">
+
+          <div class="info-box">
+            <span>Available Quantity</span>
+            <strong>
+              {{ product.quantity }} {{ product.unit }}
+            </strong>
+          </div>
+
+          <div class="info-box">
+            <span>Expected Price</span>
+            <strong>
+              ₹{{ product.expectedprice }} / {{ product.unit }}
+            </strong>
+          </div>
+
+          <div class="info-box">
+            <span>District</span>
+            <strong>
+              {{ product.districtname }}
+            </strong>
+          </div>
+
+          <div class="info-box">
+            <span>Location</span>
+            <strong>
+              {{ product.locationname }}
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Request Form -->
+    <div class="form-section">
+
+      <div class="section-title">
+        Purchase Requirement
+      </div>
+
+
+      <form
+        #requestForm="ngForm"
+        (ngSubmit)="sendRequest()"
+        novalidate>
+
+
+        <!-- Quantity -->
+        <div class="form-group">
+
+          <label>
+            Required Quantity <span>*</span>
+          </label>
+
+          <div class="input-with-unit">
+
+            <input
+              type="number"
+              name="quantity"
+              [(ngModel)]="request.quantity"
+              #quantity="ngModel"
+              min="1"
+              [max]="product.quantity"
+              step="0.01"
+              placeholder="Enter required quantity"
+              required>
+
+            <span>
+              {{ product.unit }}
+            </span>
+
+          </div>
+
+
+          <small
+            class="hint"
+            *ngIf="!submitted">
+
+            Available:
+            {{ product.quantity }} {{ product.unit }}
+
+          </small>
+
+
+          <small
+            class="error"
+            *ngIf="submitted && quantity.invalid">
+
+            Please enter a valid quantity.
+
+          </small>
+
+
+          <small
+            class="error"
+            *ngIf="submitted && request.quantity > product.quantity">
+
+            Required quantity cannot be greater than
+            available quantity.
+
+          </small>
+
+        </div>
+
+
+        <!-- Offered Price -->
+        <div class="form-group">
+
+          <label>
+            Your Offered Price <span>*</span>
+          </label>
+
+          <div class="input-with-unit">
+
+            <span class="currency">₹</span>
+
+            <input
+              type="number"
+              name="offeredprice"
+              [(ngModel)]="request.offeredprice"
+              #offeredprice="ngModel"
+              min="1"
+              step="0.01"
+              placeholder="Enter your offered price"
+              required>
+
+            <span>
+              / {{ product.unit }}
+            </span>
+
+          </div>
+
+
+          <small class="hint">
+            Expected price:
+            ₹{{ product.expectedprice }} / {{ product.unit }}
+          </small>
+
+
+          <small
+            class="error"
+            *ngIf="submitted && offeredprice.invalid">
+
+            Please enter a valid offered price.
+
+          </small>
+
+        </div>
+
+
+        <!-- Total -->
+        <div class="total-box">
+
+          <div>
+            <span>Required Quantity</span>
+            <strong>
+              {{ request.quantity || 0 }} {{ product.unit }}
+            </strong>
+          </div>
+
+          <div>
+            <span>Price per {{ product.unit }}</span>
+            <strong>
+              ₹{{ request.offeredprice || 0 }}
+            </strong>
+          </div>
+
+          <div class="total">
+
+            <span>Estimated Total</span>
+
+            <strong>
+              ₹{{ getTotalAmount() | number:'1.2-2' }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- Message -->
+        <div class="form-group">
+
+          <label>
+            Message
+          </label>
+
+          <textarea
+            name="message"
+            [(ngModel)]="request.message"
+            #message="ngModel"
+            rows="4"
+            maxlength="500"
+            placeholder="Write a message to the farmer...">
+          </textarea>
+
+          <small class="character-count">
+            {{ request.message?.length || 0 }}/500
+          </small>
+
+        </div>
+
+
+        <!-- Buttons -->
+        <div class="button-area">
+
+          <button
+            type="button"
+            class="cancel-btn"
+            (click)="goBack()">
+
+            Cancel
+
+          </button>
+
+
+          <button
+            type="submit"
+            class="request-btn"
+            [disabled]="loading">
+
+            <span *ngIf="!loading">
+              Send Purchase Request
+            </span>
+
+            <span *ngIf="loading">
+              Sending...
+            </span>
+
+          </button>
+
+        </div>
+
+
+        <!-- Error -->
+        <div
+          class="server-error"
+          *ngIf="errorMessage">
+
+          {{ errorMessage }}
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- Loading -->
+  <div
+    class="loading"
+    *ngIf="!product && !errorMessage">
+
+    Loading product details...
+
+  </div>
+
+
+  <!-- Error -->
+  <div
+    class="no-product"
+    *ngIf="errorMessage && !product">
+
+    <h3>Unable to load product</h3>
+
+    <p>{{ errorMessage }}</p>
+
+    <button
+      class="back-btn"
+      (click)="goBack()">
+
+      Go Back
+
+    </button>
+
+  </div>
+
+</div>

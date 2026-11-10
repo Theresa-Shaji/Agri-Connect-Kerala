@@ -1,0 +1,99 @@
+<div class="container mt-4">
+
+    <h3 class="text-center mb-4">
+        Edit Price Update
+    </h3>
+
+    <form [formGroup]="priceForm">
+
+        <div class="mb-3">
+            <label class="form-label">
+                Category
+            </label>
+
+            <select class="form-control" formControlName="categoryid">
+
+                <option value="">
+                    Select Category
+                </option>
+
+                <option
+                    *ngFor="let data of categoryArray"
+                    [value]="data.categoryid">
+
+                    {{data.categoryname}}
+
+                </option>
+
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                Price
+            </label>
+
+            <input
+                type="number"
+                class="form-control"
+                formControlName="price">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                Update Date
+            </label>
+
+            <input
+                type="date"
+                class="form-control"
+                formControlName="updatedate">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                Unit
+            </label>
+
+            <select
+                class="form-control"
+                formControlName="unit">
+
+                <option value="Kg">Kg</option>
+                <option value="Quintal">Quintal</option>
+
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">
+                Trend
+            </label>
+
+            <select
+                class="form-control"
+                formControlName="trend">
+
+                <option value="Increase">Increase</option>
+                <option value="Stable">Stable</option>
+                <option value="Decrease">Decrease</option>
+
+            </select>
+        </div>
+
+        <div class="text-center">
+
+            <button
+                type="button"
+                class="btn btn-success"
+                (click)="updatePrice()">
+
+                Update Price
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>

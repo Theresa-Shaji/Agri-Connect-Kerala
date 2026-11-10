@@ -1,0 +1,637 @@
+<div class="payment-page">
+
+  <!-- =====================================================
+       PAGE HEADER
+  ====================================================== -->
+  <div class="payment-header">
+
+    <div class="header-icon">
+      💳
+    </div>
+
+    <div>
+      <h2>Make Payment</h2>
+
+      <p>
+        Complete the advance payment for your accepted purchase request.
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       LOADING
+  ====================================================== -->
+  <div
+    class="loading-box"
+    *ngIf="loading"
+  >
+
+    <div class="loader"></div>
+
+    <p>
+      Loading payment details...
+    </p>
+
+  </div>
+
+
+  <!-- =====================================================
+       ERROR
+  ====================================================== -->
+  <div
+    class="error-box"
+    *ngIf="!loading && errorMessage"
+  >
+
+    <span>⚠️</span>
+
+    <div>
+
+      <strong>
+        Unable to load payment details
+      </strong>
+
+      <p>
+        {{ errorMessage }}
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       PAYMENT CONTENT
+  ====================================================== -->
+  <div
+    class="payment-container"
+    *ngIf="!loading && paymentData"
+  >
+
+
+    <!-- =================================================
+         PRODUCT CARD
+    ================================================== -->
+    <div class="product-card">
+
+      <div class="product-image">
+
+        <img
+          [src]="'http://localhost:3000/images/' + paymentData.image"
+          [alt]="paymentData.productname"
+          onerror="this.src='assets/images/no-image.png'"
+        >
+
+      </div>
+
+
+      <div class="product-info">
+
+        <div class="product-title-row">
+
+          <h3>
+            {{ paymentData.productname || 'Product' }}
+          </h3>
+
+          <span class="accepted-badge">
+            ✓ Request Accepted
+          </span>
+
+        </div>
+
+
+        <p class="category">
+          {{ paymentData.categoryname || 'Agricultural Product' }}
+        </p>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         DETAILS GRID
+    ================================================== -->
+    <div class="details-grid">
+
+
+      <!-- ===============================================
+           FARMER DETAILS
+      ================================================ -->
+      <div class="info-card">
+
+        <h4>
+           Farmer Details
+        </h4>
+
+
+        <div class="info-row">
+
+          <span>
+            Farmer Name
+          </span>
+
+          <strong>
+            {{ paymentData.farmername || 'Not Available' }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>
+            Phone
+          </span>
+
+          <strong>
+            {{ paymentData.phoneno || 'Not Available' }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>
+            District
+          </span>
+
+          <strong>
+            {{ paymentData.districtname || 'Not Available' }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>
+            Location
+          </span>
+
+          <strong>
+            {{ paymentData.locationname || 'Not Available' }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ===============================================
+           PURCHASE DETAILS
+      ================================================ -->
+      <div class="info-card">
+
+        <h4>
+           Purchase Details
+        </h4>
+
+
+        <div class="info-row">
+
+          <span>
+            Requested Quantity
+          </span>
+
+          <strong>
+            {{ paymentData.quantity || 0 }}
+            {{ paymentData.unit || '' }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>
+            Offered Price
+          </span>
+
+          <strong class="green-value">
+            ₹{{ paymentData.offeredprice | number:'1.2-2' }}
+            / {{ paymentData.unit || 'unit' }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>
+            Expected Price
+          </span>
+
+          <strong>
+            ₹{{ paymentData.expectedprice | number:'1.2-2' }}
+            / {{ paymentData.unit || 'unit' }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>
+            Request Date
+          </span>
+
+          <strong>
+            {{ paymentData.requestdate | date:'dd-MM-yyyy' }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PAYMENT SUMMARY
+    ================================================== -->
+    <div class="summary-card">
+
+      <div class="summary-title">
+
+        <div>
+
+          <h3>
+            Payment Summary
+          </h3>
+
+          <p>
+            Based on your accepted purchase request
+          </p>
+
+        </div>
+
+
+        <span class="advance-badge">
+          20% Advance
+        </span>
+
+      </div>
+
+
+      <!-- QUANTITY -->
+      <div class="summary-row">
+
+        <span>
+          Quantity
+        </span>
+
+        <strong>
+          {{ paymentData.quantity || 0 }}
+          {{ paymentData.unit || '' }}
+        </strong>
+
+      </div>
+
+
+      <!-- PRICE -->
+      <div class="summary-row">
+
+        <span>
+          Price per {{ paymentData.unit || 'unit' }}
+        </span>
+
+        <strong>
+          ₹{{ paymentData.offeredprice | number:'1.2-2' }}
+        </strong>
+
+      </div>
+
+
+      <!-- TOTAL -->
+      <div class="summary-row">
+
+        <span>
+          Total Purchase Amount
+        </span>
+
+        <strong>
+          ₹{{ totalPrice | number:'1.2-2' }}
+        </strong>
+
+      </div>
+
+
+      <div class="divider"></div>
+
+
+      <!-- ===============================================
+           ADVANCE BOX
+      ================================================ -->
+      <div class="advance-box">
+
+        <div class="advance-top">
+
+          <div>
+
+            <h4>
+              Advance Payment
+            </h4>
+
+            <p>
+              20% of the total purchase amount
+            </p>
+
+          </div>
+
+
+          <span>
+            20%
+          </span>
+
+        </div>
+
+
+        <div class="advance-amount">
+
+          ₹{{ advanceamount | number:'1.2-2' }}
+
+        </div>
+
+      </div>
+
+
+      <!-- ===============================================
+           REMAINING
+      ================================================ -->
+      <div class="summary-row remaining-row">
+
+        <span>
+          Remaining Amount
+        </span>
+
+        <strong>
+          ₹{{ remainingAmount | number:'1.2-2' }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PAYMENT METHOD
+    ================================================== -->
+    <div class="method-card">
+
+      <div class="method-title">
+
+        <div>
+
+          <h3>
+            Select Payment Method
+          </h3>
+
+          <p>
+            Choose your preferred payment method
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="payment-methods">
+
+
+        <!-- UPI -->
+        <label
+          class="method-option"
+          [class.selected]="selectedPaymentMethod === 'UPI'"
+        >
+
+          <input
+            type="radio"
+            name="paymentMethod"
+            value="UPI"
+            [(ngModel)]="selectedPaymentMethod"
+          >
+
+          <div class="method-content">
+
+            <span class="method-icon">
+              📱
+            </span>
+
+            <div>
+
+              <strong>
+                UPI
+              </strong>
+
+              <small>
+                Google Pay / PhonePe / Paytm
+              </small>
+
+            </div>
+
+          </div>
+
+        </label>
+
+
+
+        <!-- CARD -->
+        <label
+          class="method-option"
+          [class.selected]="selectedPaymentMethod === 'Card'"
+        >
+
+          <input
+            type="radio"
+            name="paymentMethod"
+            value="Card"
+            [(ngModel)]="selectedPaymentMethod"
+          >
+
+          <div class="method-content">
+
+            <span class="method-icon">
+              💳
+            </span>
+
+            <div>
+
+              <strong>
+                Debit / Credit Card
+              </strong>
+
+              <small>
+                Visa / Mastercard / RuPay
+              </small>
+
+            </div>
+
+          </div>
+
+        </label>
+
+
+
+        <!-- NET BANKING -->
+        <label
+          class="method-option"
+          [class.selected]="selectedPaymentMethod === 'Net Banking'"
+        >
+
+          <input
+            type="radio"
+            name="paymentMethod"
+            value="Net Banking"
+            [(ngModel)]="selectedPaymentMethod"
+          >
+
+          <div class="method-content">
+
+            <span class="method-icon">
+              🏦
+            </span>
+
+            <div>
+
+              <strong>
+                Net Banking
+              </strong>
+
+              <small>
+                Pay using your bank account
+              </small>
+
+            </div>
+
+          </div>
+
+        </label>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PAYMENT ACTION
+    ================================================== -->
+    <div class="payment-action">
+
+      <div class="secure-text">
+
+        <span>
+          🔒
+        </span>
+
+        <div>
+
+          <strong>
+            Secure Payment
+          </strong>
+
+          <small>
+            Your payment information is protected.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="pay-button"
+        [disabled]="processingPayment || paymentStatus === 'Paid'"
+        (click)="payNow()"
+      >
+
+        <span
+          *ngIf="!processingPayment && paymentStatus !== 'Paid'"
+        >
+          💳 Pay ₹{{ advanceamount | number:'1.2-2' }}
+        </span>
+
+
+        <span
+          *ngIf="processingPayment"
+        >
+          Processing...
+        </span>
+
+
+        <span
+          *ngIf="!processingPayment && paymentStatus === 'Paid'"
+        >
+          ✓ Payment Completed
+        </span>
+
+      </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         SUCCESS MESSAGE
+    ================================================== -->
+    <div
+      class="success-message"
+      *ngIf="paymentStatus === 'Paid'"
+    >
+
+      <span class="success-icon">
+        ✓
+      </span>
+
+      <div>
+
+        <strong>
+          Payment Successful
+        </strong>
+
+        <p>
+          Advance payment has been completed successfully.
+        </p>
+
+        <small>
+          Transaction ID:
+          {{ paymentData.transactionid }}
+        </small>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         NOTE
+    ================================================== -->
+    <div class="payment-note">
+
+      <span>
+        ℹ️
+      </span>
+
+      <p>
+
+        You are required to pay 20% of the total purchase amount
+        as advance payment. The remaining amount can be settled
+        according to the final purchase arrangement with the farmer.
+
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

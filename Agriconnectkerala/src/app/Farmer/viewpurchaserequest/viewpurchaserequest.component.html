@@ -1,0 +1,304 @@
+<div class="container mt-4">
+
+    <!-- Page Title -->
+    <h2 class="text-center text-success mb-4">
+        🌾 Purchase Requests
+    </h2>
+
+    <!-- Summary -->
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+            <div class="card bg-warning text-dark shadow">
+                <div class="card-body text-center">
+                    <h5>Pending</h5>
+                    <h2>{{ pendingCount }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-success text-white shadow">
+                <div class="card-body text-center">
+                    <h5>Accepted</h5>
+                    <h2>{{ acceptedCount }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-danger text-white shadow">
+                <div class="card-body text-center">
+                    <h5>Rejected</h5>
+                    <h2>{{ rejectedCount }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Request Cards -->
+    <div class="row">
+
+        <div
+            class="col-lg-4 col-md-6 mb-4"
+            *ngFor="let request of requestArray"
+        >
+
+            <div class="card shadow h-100 border-0 rounded-4">
+
+                <!-- Product Image -->
+                <img
+                    [src]="'http://localhost:3000/images/' + request.image"
+                    class="card-img-top"
+                    style="height:180px; object-fit:cover;"
+                    [alt]="request.productname"
+                >
+
+
+                <!-- Product Name -->
+                <div class="card-header bg-success text-white">
+
+                    <h5 class="mb-0">
+                        {{ request.productname }}
+                    </h5>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <!-- Product Details -->
+                    <h6 class="text-primary">
+                        Product Details
+                    </h6>
+
+                    <hr>
+
+                    <p>
+                        <b>Category :</b>
+                        {{ request.categoryname || 'Not Available' }}
+                    </p>
+
+                    <p>
+                        <b>Available Quantity :</b>
+                        {{ request.quantity }}
+                        {{ request.unit }}
+                    </p>
+
+                    <p>
+                        <b>Expected Price :</b>
+                        ₹{{ request.expectedprice }}
+                        / {{ request.unit }}
+                    </p>
+
+
+                    <!-- Requester Type -->
+                    <p>
+                        <b>Requester Type :</b>
+
+                        <span
+                            *ngIf="request.usertype === 'ShopOwner'"
+                            class="badge bg-primary"
+                        >
+                            Shop Owner
+                        </span>
+
+                        <span
+                            *ngIf="request.usertype === 'Buyer'"
+                            class="badge bg-info"
+                        >
+                            Buyer
+                        </span>
+
+                    </p>
+
+
+                    <!-- ========================== -->
+                    <!-- REQUESTER DETAILS -->
+                    <!-- ========================== -->
+
+                    <h6 class="text-primary mt-3">
+                        Requester Details
+                    </h6>
+
+                    <hr>
+
+
+                    <!-- SHOP OWNER -->
+                    <div *ngIf="request.usertype === 'ShopOwner'">
+
+                        <p>
+                            <b>Shop Name :</b>
+                            {{ request.shopname || 'Not Available' }}
+                        </p>
+
+                        <p>
+                            <b>Owner Name :</b>
+                            {{ request.ownername || 'Not Available' }}
+                        </p>
+
+                        <p>
+                            <b>Phone :</b>
+                            {{ request.shopownerphone || 'Not Available' }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- BUYER -->
+                    <div *ngIf="request.usertype === 'Buyer'">
+
+                        <p>
+                            <b>Buyer Name :</b>
+                            {{ request.buyername || 'Not Available' }}
+                        </p>
+
+                        <p>
+                            <b>Phone :</b>
+                            {{ request.buyerphone || 'Not Available' }}
+                        </p>
+
+                        <p>
+                            <b>Email :</b>
+                            {{ request.buyeremail || 'Not Available' }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+                    <p>
+                        <b>District :</b>
+                        {{ request.districtname || 'Not Available' }}
+                    </p>
+
+                    <p>
+                        <b>Location :</b>
+                        {{ request.locationname || 'Not Available' }}
+                    </p>
+
+
+                    <!-- ========================== -->
+                    <!-- PURCHASE REQUEST -->
+                    <!-- ========================== -->
+
+                    <h6 class="text-danger mt-3">
+                        Purchase Request
+                    </h6>
+
+                    <hr>
+
+
+                    <p>
+                        <b>Requested Quantity :</b>
+                        {{ request.requestquantity }}
+                        {{ request.unit }}
+                    </p>
+
+
+                    <p>
+                        <b>Offered Price :</b>
+                        ₹{{ request.offeredprice }}
+                        / {{ request.unit }}
+                    </p>
+
+
+                    <!-- Price Difference -->
+                    <p>
+                        <b>Price Difference :</b>
+
+                        <span
+                            [class.text-success]="request.priceDifference > 0"
+                            [class.text-danger]="request.priceDifference < 0"
+                            [class.text-secondary]="request.priceDifference === 0"
+                        >
+                            ₹{{ request.priceDifference }}
+                        </span>
+                    </p>
+
+
+                    <!-- Total Amount -->
+                    <p>
+                        <b>Total Amount :</b>
+                        ₹{{ request.totalvalue }}
+                    </p>
+
+
+                    <!-- Message -->
+                    <p>
+                        <b>Message :</b>
+                        {{ request.message || 'No message' }}
+                    </p>
+
+
+                    <!-- Request Date -->
+                    <p>
+                        <b>Request Date :</b>
+                        {{ request.requestdate | date:'dd-MM-yyyy' }}
+                    </p>
+
+                </div>
+
+
+                <!-- Footer -->
+                <div class="card-footer bg-white text-center">
+
+                    <!-- Pending -->
+                    <div *ngIf="request.status === 'Pending'">
+
+                        <button
+                            type="button"
+                            class="btn btn-success btn-sm me-2"
+                            (click)="acceptRequest(request.requestid)"
+                        >
+                            Accept
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-danger btn-sm"
+                            (click)="rejectRequest(request.requestid)"
+                        >
+                            Reject
+                        </button>
+
+                    </div>
+
+
+                    <!-- Accepted -->
+                    <span
+                        *ngIf="request.status === 'Accepted'"
+                        class="badge bg-success fs-6"
+                    >
+                        Accepted
+                    </span>
+
+
+                    <!-- Rejected -->
+                    <span
+                        *ngIf="request.status === 'Rejected'"
+                        class="badge bg-danger fs-6"
+                    >
+                        Rejected
+                    </span>
+
+
+                    <!-- Advance Paid -->
+                    <span
+                        *ngIf="request.status === 'Advance Paid'"
+                        class="badge bg-info fs-6"
+                    >
+                        Advance Paid
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

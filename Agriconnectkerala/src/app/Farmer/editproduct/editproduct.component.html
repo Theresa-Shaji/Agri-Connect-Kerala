@@ -1,0 +1,258 @@
+<div class="container py-5">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-10">
+
+<div class="card shadow-lg border-0">
+
+<div class="card-header bg-success text-white text-center">
+
+<h2>🌾 Edit Product</h2>
+
+<p>Edit Your Product Details</p>
+
+</div>
+
+<div class="card-body">
+
+<form>
+
+<h5 class="text-success mb-3">Product Information</h5>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label>Category</label>
+
+<select
+class="form-select"
+[(ngModel)]="product.categoryid"
+name="categoryid">
+
+<option *ngFor="let c of categoryArray"
+[value]="c.categoryid">
+
+{{c.categoryname}}
+
+</option>
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Product Name</label>
+
+<input
+type="text"
+class="form-control"
+[(ngModel)]="product.productname"
+name="productname">
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-4 mb-3">
+
+<label>Quantity</label>
+
+<input
+type="number"
+class="form-control"
+[(ngModel)]="product.quantity"
+name="quantity">
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<label>Unit</label>
+
+<select
+class="form-select"
+[(ngModel)]="product.unit"
+name="unit">
+
+<option>Kg</option>
+<option>Gram</option>
+<option>Quintal</option>
+<option>Ton</option>
+<option>Litre</option>
+<option>Piece</option>
+<option>Bundle</option>
+
+</select>
+
+</div>
+
+<div class="col-md-4 mb-3">
+
+<label>Quality</label>
+
+<select
+class="form-select"
+[(ngModel)]="product.quality"
+name="quality">
+
+<option>Excellent</option>
+<option>Good</option>
+<option>Average</option>
+<option>Poor</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label>Expected Price</label>
+
+<input
+type="number"
+class="form-control"
+[(ngModel)]="product.expectedprice"
+name="expectedprice">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Upload Date</label>
+
+<input
+type="date"
+class="form-control"
+[(ngModel)]="product.uploaddate"
+name="uploaddate"
+readonly>
+
+</div>
+
+</div>
+
+<hr>
+
+<h5 class="text-success mb-3">Location</h5>
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label>District</label>
+
+<select
+class="form-select"
+[(ngModel)]="product.districtid"
+(change)="loadLocation()"
+name="districtid">
+
+<option
+*ngFor="let d of districtArray"
+[value]="d.districtid">
+
+{{d.districtname}}
+
+</option>
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label>Location</label>
+
+<select
+class="form-select"
+[(ngModel)]="product.locationid"
+name="locationid">
+
+<option
+*ngFor="let l of locationArray"
+[value]="l.locationid">
+
+{{l.locationname}}
+
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="mb-3">
+
+<label>Description</label>
+
+<textarea
+rows="4"
+class="form-control"
+[(ngModel)]="product.description"
+name="description">
+
+</textarea>
+
+</div>
+
+<div class="mb-3">
+
+<label>Current Image</label>
+
+<br>
+
+<img
+[src]="'http://localhost:3000/images/'+product.image"
+width="180"
+class="img-thumbnail mb-2">
+
+<input
+type="file"
+class="form-control"
+(change)="uploadImage($event)">
+
+</div>
+
+<div class="text-center">
+
+<button
+type="button"
+class="btn btn-success px-5"
+(click)="updateProduct()">
+
+Update Product
+
+</button>
+
+<button
+type="button"
+class="btn btn-secondary px-5 ms-3"
+routerLink="/farmermaster/viewproduct">
+
+Cancel
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>

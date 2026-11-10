@@ -1,0 +1,47 @@
+<div class="main-panel">
+    <div class="content-wrapper">
+      <!-- <button class="btn btn-primary" style="margin-left:1000px;" [routerLink]="['/adminmaster/categoryview']">View </button> -->
+  
+      <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+          <div class="card">
+  
+            <div class="card-body">
+              <div class="row" style="padding-left: 800px;">
+                <button class="btn btn-primary" [routerLink]="['/adminmaster/categoryview']">View Data</button>
+  
+              </div>
+              <h4 class="card-title">Edit Category Registration</h4>
+  
+              <!-- <p class="card-description">
+                  Basic form layout
+                </p> -->
+              <form class="forms-sample" [formGroup]="editcategory" enctype="multipart/form-data">
+                <input type="hidden" formControlName="categoryid">
+                <div class="form-group">
+                  <label for="exampleInputUsername1">Category Name</label>
+                  <input type="text" class="form-control" id="exampleInputUsername1" formControlName="categoryname"
+                    placeholder="Category Name">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputUsername1">Image</label>
+                  <br>
+                
+                  <img src="http://localhost:3000/images/{{categoryArray[0].image}}" width="75px" height="75px" alt="">
+                  <input type="file" class="form-control" id="exampleInputUsername1" formControlName="image"
+                    placeholder="Image" (change)="selectFile($event)">
+                </div>
+  
+  
+  
+                <div class="form-check form-check-flat form-check-primary">
+                  <label class="form-check-label">
+  
+                  </label>
+                </div>
+                <button type="submit" class="btn btn-primary mr-2" (click)="onSubmit()">Submit</button>
+                <button class="btn btn-light">Cancel</button>
+              </form>
+            </div>
+          </div>
+        </div>

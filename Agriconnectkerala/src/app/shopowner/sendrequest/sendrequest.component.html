@@ -1,0 +1,60 @@
+<div class="container mt-4">
+
+  <div class="card shadow request-card">
+
+    <div class="card-header bg-success text-white text-center">
+      <h5 class="mb-0">Send Purchase Request</h5>
+    </div>
+
+
+    <div class="card-body">
+
+
+      <div class="row">
+
+        <div class="col-md-6 mb-3">
+          <label>Required Quantity</label>
+          <input 
+          type="number"
+          class="form-control"
+          [(ngModel)]="quantity">
+        </div>
+
+
+        <div class="col-md-6 mb-3">
+          <label>Offered Price (Optional)</label>
+          <input 
+          type="text"
+          class="form-control"
+          [(ngModel)]="offeredprice">
+        </div>
+
+      </div>
+
+
+      <div class="mb-3">
+        <label>Message</label>
+
+        <textarea
+        class="form-control"
+        rows="3"
+        [(ngModel)]="message">
+        </textarea>
+
+      </div>
+
+
+      <button 
+      class="btn btn-success w-100"
+      (click)="submitRequest()">
+
+      Send Request
+
+      </button>
+
+
+    </div>
+
+  </div>
+
+</div>

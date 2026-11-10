@@ -1,0 +1,843 @@
+/* =====================================================
+   MAIN PAGE
+===================================================== */
+
+.success-page {
+  min-height: 100vh;
+  background: #f4f7f5;
+  padding: 45px 20px 70px;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   WRAPPER
+===================================================== */
+
+.receipt-wrapper {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.brand-icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 16px;
+  background: #e4f4e7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 29px;
+  flex-shrink: 0;
+}
+
+.brand-text h1 {
+  margin: 0;
+  color: #205b2d;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.brand-text p {
+  margin: 4px 0 0;
+  color: #7c877f;
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   SUCCESS CARD
+===================================================== */
+
+.success-card {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 38px 20px 35px;
+  text-align: center;
+  border: 1px solid #e3ebe5;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* =====================================================
+   SUCCESS CIRCLE
+===================================================== */
+
+.success-circle {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 18px;
+
+  border-radius: 50%;
+
+  background: #e3f6e7;
+  border: 7px solid #f1faf3;
+
+  color: #218b43;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    0 5px 18px rgba(33, 139, 67, 0.12);
+
+  box-sizing: border-box;
+}
+
+.success-circle span {
+  display: block;
+  font-size: 48px;
+  line-height: 1;
+  font-weight: 800;
+  transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   SUCCESS TEXT
+===================================================== */
+
+.success-card h2 {
+  margin: 0 0 8px;
+  color: #23753a;
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.success-card p {
+  margin: 0;
+  color: #7c877f;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+
+/* =====================================================
+   PAID TO FARMER
+===================================================== */
+
+.paid-card {
+  margin-top: 20px;
+
+  background: #ffffff;
+
+  border-radius: 18px;
+
+  padding: 20px 25px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  border: 1px solid #dfe9e1;
+
+  box-shadow:
+    0 5px 18px rgba(0, 0, 0, 0.04);
+}
+
+.farmer-icon {
+  width: 58px;
+  height: 58px;
+
+  border-radius: 50%;
+
+  background: #edf8ef;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+
+  flex-shrink: 0;
+}
+
+.farmer-info {
+  flex: 1;
+}
+
+.farmer-info span {
+  display: block;
+
+  font-size: 11px;
+
+  color: #8a948d;
+
+  letter-spacing: 1.3px;
+
+  font-weight: 700;
+}
+
+.farmer-info h3 {
+  margin: 5px 0 0;
+
+  font-size: 21px;
+
+  color: #254d30;
+
+  font-weight: 700;
+}
+
+.verified {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+
+  background: #e3f5e7;
+
+  color: #29954a;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+
+  font-weight: 800;
+
+  flex-shrink: 0;
+}
+
+
+/* =====================================================
+   AMOUNT CARD
+===================================================== */
+
+.amount-card {
+  margin-top: 20px;
+
+  padding: 32px 25px;
+
+  border-radius: 21px;
+
+  text-align: center;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1f7235,
+      #2d9348
+    );
+
+  box-shadow:
+    0 12px 32px rgba(37, 119, 58, 0.20);
+}
+
+.amount-card span {
+  display: block;
+
+  font-size: 12px;
+
+  letter-spacing: 1.5px;
+
+  opacity: 0.9;
+
+  font-weight: 700;
+}
+
+.amount-card h2 {
+  margin: 10px 0 8px;
+
+  font-size: 42px;
+
+  font-weight: 700;
+
+  color: #ffffff;
+
+  line-height: 1.2;
+}
+
+.amount-card small {
+  display: inline-block;
+
+  padding: 6px 15px;
+
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  font-size: 12px;
+
+  color: #ffffff;
+}
+
+
+/* =====================================================
+   DETAILS CARD
+===================================================== */
+
+.details-card {
+  margin-top: 20px;
+
+  background: #ffffff;
+
+  border-radius: 19px;
+
+  padding: 25px;
+
+  border: 1px solid #e2ebe4;
+
+  box-shadow:
+    0 5px 18px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =====================================================
+   CARD TITLE
+===================================================== */
+
+.card-title,
+.transaction-title {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 22px;
+}
+
+.title-icon {
+  width: 43px;
+  height: 43px;
+
+  border-radius: 12px;
+
+  background: #eef7f0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 19px;
+
+  flex-shrink: 0;
+}
+
+.card-title h3,
+.transaction-title h3 {
+  margin: 0;
+
+  color: #293a2e;
+
+  font-size: 17px;
+
+  font-weight: 700;
+}
+
+.card-title p,
+.transaction-title p {
+  margin: 3px 0 0;
+
+  color: #89938d;
+
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   PRODUCT GRID
+===================================================== */
+
+.details-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 0 35px;
+}
+
+.detail {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 15px 0;
+
+  border-bottom: 1px solid #edf1ee;
+}
+
+.detail span {
+  color: #7b857f;
+
+  font-size: 13px;
+}
+
+.detail strong {
+  color: #27362c;
+
+  font-size: 14px;
+
+  text-align: right;
+
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   PAYMENT SUMMARY
+===================================================== */
+
+.summary-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 15px 0;
+
+  border-bottom: 1px solid #edf1ee;
+}
+
+.summary-row span {
+  color: #737e77;
+
+  font-size: 14px;
+}
+
+.summary-row strong {
+  color: #29372e;
+
+  font-size: 15px;
+
+  font-weight: 700;
+}
+
+.summary-row.advance strong {
+  color: #238442;
+}
+
+.summary-row.remaining strong {
+  color: #bd7515;
+}
+
+
+/* =====================================================
+   TRANSACTION CARD
+===================================================== */
+
+.transaction-card {
+  margin-top: 20px;
+
+  background: #ffffff;
+
+  border-radius: 19px;
+
+  padding: 25px;
+
+  border: 1px solid #e2ebe4;
+
+  box-shadow:
+    0 5px 18px rgba(0, 0, 0, 0.04);
+}
+
+.transaction-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 16px 0;
+
+  border-bottom: 1px solid #edf1ee;
+}
+
+.transaction-row:last-child {
+  border-bottom: none;
+}
+
+.transaction-row span {
+  color: #7b857f;
+
+  font-size: 13px;
+}
+
+.transaction-row strong {
+  color: #29382e;
+
+  font-size: 13px;
+
+  text-align: right;
+
+  word-break: break-word;
+}
+
+.transaction-row .paid {
+  color: #258d45;
+
+  background: #e8f7eb;
+
+  padding: 6px 14px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   SECURE MESSAGE
+===================================================== */
+
+.secure-card {
+  margin-top: 20px;
+
+  padding: 18px 20px;
+
+  border-radius: 16px;
+
+  background: #f0f8f2;
+
+  border: 1px solid #dceee0;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+}
+
+.secure-icon {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+
+  flex-shrink: 0;
+}
+
+.secure-card strong {
+  color: #286238;
+
+  font-size: 14px;
+}
+
+.secure-card p {
+  margin: 4px 0 0;
+
+  color: #718078;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+/* =====================================================
+   BUTTON CONTAINER
+===================================================== */
+
+.buttons {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 16px;
+
+  margin-top: 30px;
+
+  width: 100%;
+}
+
+
+/* =====================================================
+   COMMON BUTTON
+===================================================== */
+
+.buttons button {
+  min-width: 210px;
+
+  border-radius: 10px;
+
+  padding: 14px 24px;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  box-sizing: border-box;
+}
+
+
+/* =====================================================
+   DOWNLOAD BUTTON
+===================================================== */
+
+.download-btn {
+  background: #267d3b;
+
+  color: #ffffff;
+
+  border: 2px solid #267d3b;
+
+  box-shadow:
+    0 5px 15px rgba(38, 125, 59, 0.18);
+}
+
+.download-btn:hover {
+  background: #1f6931;
+
+  border-color: #1f6931;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 7px 18px rgba(38, 125, 59, 0.25);
+}
+
+.download-btn:active {
+  transform: translateY(0);
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.back-btn {
+  background: #ffffff;
+
+  color: #46534a;
+
+  border: 2px solid #d5ded7;
+}
+
+.back-btn:hover {
+  background: #f1f6f2;
+
+  color: #286238;
+
+  border-color: #aebdb2;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 14px rgba(0, 0, 0, 0.08);
+}
+
+.back-btn:active {
+  transform: translateY(0);
+}
+
+
+/* =====================================================
+   BUTTON ICON
+===================================================== */
+
+.buttons button span {
+  font-size: 17px;
+
+  line-height: 1;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+  text-align: center;
+
+  margin-top: 28px;
+}
+
+.footer p {
+  margin: 0;
+
+  color: #7b867f;
+
+  font-size: 12px;
+}
+
+.footer span {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #a0a9a3;
+
+  font-size: 11px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+  .success-page {
+    padding: 25px 12px 45px;
+  }
+
+
+  .brand-section {
+    justify-content: center;
+  }
+
+
+  .brand-text h1 {
+    font-size: 22px;
+  }
+
+
+  .brand-text p {
+    font-size: 11px;
+  }
+
+
+  .success-card {
+    padding: 30px 15px;
+  }
+
+
+  .success-circle {
+    width: 82px;
+    height: 82px;
+  }
+
+
+  .success-circle span {
+    font-size: 44px;
+  }
+
+
+  .success-card h2 {
+    font-size: 25px;
+  }
+
+
+  .paid-card {
+    padding: 18px;
+  }
+
+
+  .farmer-info h3 {
+    font-size: 18px;
+  }
+
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .amount-card {
+    padding: 28px 15px;
+  }
+
+
+  .amount-card h2 {
+    font-size: 34px;
+  }
+
+
+  .details-card,
+  .transaction-card {
+    padding: 19px;
+  }
+
+
+  .transaction-row {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 6px;
+  }
+
+
+  .transaction-row strong {
+    text-align: left;
+  }
+
+
+  /* =========================================
+     MOBILE BUTTONS
+  ========================================= */
+
+  .buttons {
+    flex-direction: column;
+
+    gap: 12px;
+
+    width: 100%;
+  }
+
+
+  .buttons button {
+    width: 100%;
+
+    min-width: 100%;
+  }
+
+}

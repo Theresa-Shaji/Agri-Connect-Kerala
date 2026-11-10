@@ -1,0 +1,219 @@
+<div class="container-fluid price-page">
+
+    <div class="price-card">
+
+        <div class="price-header">
+            <h2>
+                <i class="fa fa-line-chart"></i>
+                Update Market Price
+            </h2>
+
+            <p>
+                Update your shop buying prices for registered products
+            </p>
+        </div>
+
+
+
+        <div class="form-content">
+
+
+            <!-- Category -->
+
+            <div class="form-group">
+
+                <label>
+                    Product Category
+                </label>
+
+                <select 
+                class="form-control custom-select"
+                [(ngModel)]="price.categoryid"
+                name="categoryid">
+
+
+                    <option value="">
+                        Select Product
+                    </option>
+
+
+                    <option 
+                    *ngFor="let cat of categoryArray"
+                    [value]="cat.categoryid">
+
+                        {{cat.categoryname}}
+
+                    </option>
+
+
+                </select>
+
+            </div>
+
+
+
+
+            <div class="row">
+
+
+                <!-- Price -->
+
+                <div class="col-md-8">
+
+                    <div class="form-group">
+
+                        <label>
+                            Buying Price
+                        </label>
+
+
+                        <div class="input-group">
+
+                            <span class="input-icon">
+                                ₹
+                            </span>
+
+
+                            <input 
+                            type="number"
+                            class="form-control"
+                            placeholder="Enter buying price"
+                            [(ngModel)]="price.price"
+                            name="price">
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+
+                <!-- Unit -->
+
+                <div class="col-md-4">
+
+                    <div class="form-group">
+
+                        <label>
+                            Unit
+                        </label>
+
+
+                        <select 
+                        class="form-control"
+                        [(ngModel)]="price.unit"
+                        name="unit">
+
+
+                            <option value="">
+                                Select Unit
+                            </option>
+
+                            <option value="Kg">
+                                Kg
+                            </option>
+
+                            <option value="Quintal">
+                                Quintal
+                            </option>
+
+
+                        </select>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+            <!-- Date -->
+
+            <div class="form-group">
+
+
+                <label>
+                    Update Date
+                </label>
+
+
+                <input 
+                type="date"
+                class="form-control"
+                [(ngModel)]="price.updatedate"
+                name="updatedate">
+
+
+            </div>
+
+
+
+
+            <!-- Trend -->
+
+            <div class="form-group">
+
+
+                <label>
+                    Price Trend
+                </label>
+
+
+                <select 
+                class="form-control"
+                [(ngModel)]="price.trend"
+                name="trend">
+
+
+                    <option value="">
+                        Select Trend
+                    </option>
+
+
+                    <option value="Increase">
+                        ↑ Increase
+                    </option>
+
+
+                    <option value="Decrease">
+                        ↓ Decrease
+                    </option>
+
+
+                    <option value="Stable">
+                        → Stable
+                    </option>
+
+
+                </select>
+
+
+            </div>
+
+
+
+
+            <button 
+            class="update-btn"
+            (click)="updatePrice()">
+
+                Update Price
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>

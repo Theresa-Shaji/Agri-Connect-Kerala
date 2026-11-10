@@ -1,0 +1,130 @@
+<div class="page-container">
+
+  <!-- Page Header -->
+  <div class="page-header">
+
+    <div>
+      <h2>Farmer Products</h2>
+      <p>Browse agricultural products available from farmers</p>
+    </div>
+
+  </div>
+
+
+  <!-- No Products -->
+  <div
+    class="no-products"
+    *ngIf="productArray.length === 0">
+
+    <div class="empty-icon">🌾</div>
+
+    <h3>No Products Available</h3>
+
+    <p>
+      There are currently no farmer products available.
+    </p>
+
+  </div>
+
+
+  <!-- Product Grid -->
+  <div
+    class="product-grid"
+    *ngIf="productArray.length > 0">
+
+    <div
+      class="product-card"
+      *ngFor="let product of productArray">
+
+
+      <!-- Product Image -->
+      <div class="image-container">
+
+        <img
+          [src]="'http://localhost:3000/images/' + product.image"
+          [alt]="product.productname">
+
+      </div>
+
+
+      <!-- Product Content -->
+      <div class="product-content">
+
+        <h3>
+          {{ product.productname }}
+        </h3>
+
+
+        <div class="category">
+          {{ product.categoryname }}
+        </div>
+
+
+        <div class="price">
+
+          ₹{{ product.expectedprice }}
+
+          <span>
+            / {{ product.unit }}
+          </span>
+
+        </div>
+
+
+        <div class="product-info">
+
+          <div>
+            <strong>Quantity</strong>
+            <span>
+              {{ product.quantity }} {{ product.unit }}
+            </span>
+          </div>
+
+
+          <div>
+            <strong>Location</strong>
+            <span>
+              {{ product.locationname }}
+            </span>
+          </div>
+
+
+          <div>
+            <strong>District</strong>
+            <span>
+              {{ product.districtname }}
+            </span>
+          </div>
+
+
+          <div>
+            <strong>Farmer</strong>
+            <span>
+              {{ product.farmername }}
+            </span>
+          </div>
+
+        </div>
+
+
+        <!-- Button -->
+         <!-- Button -->
+       <button
+  type="button"
+  class="details-btn"
+  (click)="viewDetails(product.productid)">
+
+  View Details
+
+
+          <span>→</span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

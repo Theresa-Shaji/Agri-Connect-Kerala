@@ -1,0 +1,77 @@
+<div class="col-lg-12 stretch-card">
+    <form [formGroup]="locationformgroup">
+        <div class="card" style="width: 1152px;">
+            <div class="card-body">
+                <h4 class="card-title">Location View</h4>
+                <!-- <p class="card-description">
+                    Add class <code></code>
+                </p> -->
+
+
+                <div class="form-group">
+                    <label for="exampleSelectGender"><strong>District</strong></label>
+                    <select class="form-control" id="exampleSelectGender" formControlName="districtid" (change)="onChange()">
+                        <option value="">Choose District</option>
+                        <option *ngFor="let data of districtArray" value="{{data.districtid}}">{{ data.districtname }}
+                        </option>
+                    </select>
+
+                </div>
+                <div class=" pt-3">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>
+                                    sl.no
+                                </th>
+                                <!-- <th>
+                                    District name
+                                </th> -->
+
+                                <th>
+                                    Location name
+                                </th>
+
+                                <th>
+                                    Edit
+                                </th>
+                                <th>
+                                    Delete
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-info" *ngFor="let data of LocationdataArray,let i=index">
+                                <td>
+                                    {{i+1}}
+                                </td>
+                                <!-- <td>
+                                    {{data.districtname}}
+                                </td> -->
+
+                                <td>
+                                    {{data.locationname}}
+                                </td>
+                               <td>
+    <a [routerLink]="['/adminmaster/editlocation', data.locationid]">
+        <button class="btn btn-success">
+            <i class="typcn typcn-edit"></i> Edit
+        </button>
+    </a>
+</td>                         
+
+                                <td>
+                                   <button type="button" class="btn btn-warning"
+        (click)="DeleteLocation(data.locationid)">
+    Delete
+</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

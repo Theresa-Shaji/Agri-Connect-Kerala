@@ -1,0 +1,368 @@
+<div class="container mt-4">
+
+    <!-- =========================================
+         PAGE TITLE
+    ========================================== -->
+
+    <h2 class="text-center text-success mb-4">
+        Advance Payments Received
+    </h2>
+
+
+    <!-- =========================================
+         PAYMENT CARDS
+    ========================================== -->
+
+    <div class="row g-4">
+
+        <div
+            class="col-lg-4 col-md-6 col-sm-12"
+            *ngFor="let payment of paymentArray"
+        >
+
+            <div class="payment-card">
+
+
+                <!-- =================================
+                     PRODUCT IMAGE
+                ================================== -->
+
+                <img
+                    [src]="'http://localhost:3000/images/' + payment.image"
+                    class="product-image"
+                    alt="Product"
+                >
+
+
+                <div class="card-body">
+
+
+                    <!-- =================================
+                         PRODUCT NAME
+                    ================================== -->
+
+                    <h5 class="product-name">
+
+                        {{ payment.productname }}
+
+                    </h5>
+
+
+                    <!-- =================================
+                         PAYMENT TYPE
+                    ================================== -->
+
+                    <div class="text-center mb-3">
+
+                        <!-- SHOP OWNER -->
+
+                        <span
+                            class="badge bg-primary"
+                            *ngIf="payment.paymenttype === 'Shop Owner'"
+                        >
+
+                            Shop Owner Payment
+
+                        </span>
+
+
+                        <!-- BUYER -->
+
+                        <span
+                            class="badge bg-success"
+                            *ngIf="payment.paymenttype === 'Buyer'"
+                        >
+
+                            Buyer Payment
+
+                        </span>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <!-- =================================
+                         SHOP OWNER DETAILS
+                    ================================== -->
+
+                    <div
+                        *ngIf="payment.paymenttype === 'Shop Owner'"
+                    >
+
+                        <h6 class="section-title">
+
+                            Shop Owner Details
+
+                        </h6>
+
+
+                        <div class="detail-row">
+
+                            <span>
+                                Shop
+                            </span>
+
+                            <b>
+                                {{ payment.shopname || 'Not Available' }}
+                            </b>
+
+                        </div>
+
+
+                        <div class="detail-row">
+
+                            <span>
+                                Owner
+                            </span>
+
+                            <b>
+                                {{ payment.ownername || 'Not Available' }}
+                            </b>
+
+                        </div>
+
+
+                        <div class="detail-row">
+
+                            <span>
+                                Phone
+                            </span>
+
+                            <b>
+                                {{ payment.phoneno || 'Not Available' }}
+                            </b>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         BUYER DETAILS
+                    ================================== -->
+
+                    <div
+                        *ngIf="payment.paymenttype === 'Buyer'"
+                    >
+
+                        <h6 class="section-title">
+
+                            Buyer Details
+
+                        </h6>
+
+
+                        <div class="detail-row">
+
+                            <span>
+                                Buyer Name
+                            </span>
+
+                            <b>
+                                {{ payment.buyername || 'Not Available' }}
+                            </b>
+
+                        </div>
+
+
+                        <div class="detail-row">
+
+                            <span>
+                                Phone
+                            </span>
+
+                            <b>
+                                {{ payment.buyerphone || 'Not Available' }}
+                            </b>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <!-- =================================
+                         PAYMENT DETAILS
+                    ================================== -->
+
+                    <h6 class="section-title">
+
+                        Payment Details
+
+                    </h6>
+
+
+                    <!-- Quantity -->
+
+                    <div class="detail-row">
+
+                        <span>
+                            Quantity
+                        </span>
+
+                        <b>
+
+                            {{ payment.requestquantity }}
+
+                            {{ payment.unit }}
+
+                        </b>
+
+                    </div>
+
+
+                    <!-- Offer Price -->
+
+                    <div class="detail-row">
+
+                        <span>
+                            Offer Price
+                        </span>
+
+                        <b>
+
+                            ₹{{ payment.offeredprice }}
+
+                            / {{ payment.unit }}
+
+                        </b>
+
+                    </div>
+
+
+                    <!-- Total Purchase Amount -->
+
+                    <div class="detail-row">
+
+                        <span>
+                            Total Purchase Amount
+                        </span>
+
+                        <b>
+
+                            ₹{{ payment.totalamount }}
+
+                        </b>
+
+                    </div>
+
+
+                    <!-- Advance Paid -->
+
+                    <div class="detail-row">
+
+                        <span>
+                            Advance Paid
+                        </span>
+
+                        <b class="text-success">
+
+                            ₹{{ payment.advamount }}
+
+                        </b>
+
+                    </div>
+
+
+                    <!-- Remaining Amount -->
+
+                    <div class="detail-row">
+
+                        <span>
+                            Remaining Amount
+                        </span>
+
+                        <b class="text-warning">
+
+                            ₹{{ payment.remainingamount }}
+
+                        </b>
+
+                    </div>
+
+
+                    <!-- Payment Date -->
+
+                    <div class="detail-row">
+
+                        <span>
+                            Payment Date
+                        </span>
+
+                        <b>
+
+                            {{ payment.paymentdate | date:'dd-MM-yyyy' }}
+
+                        </b>
+
+                    </div>
+
+
+                    <!-- =================================
+                         TRANSACTION ID
+                    ================================== -->
+
+                    <div class="transaction-box">
+
+                        <small>
+                            Transaction ID
+                        </small>
+
+
+                        <strong>
+
+                            {{ payment.transactionid }}
+
+                        </strong>
+
+                    </div>
+
+
+                    <!-- =================================
+                         PAYMENT STATUS
+                    ================================== -->
+
+                    <div class="text-center mt-3">
+
+                        <span
+                            class="badge bg-success status-badge"
+                        >
+
+                            ✓ {{ payment.paymentstatus }}
+
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================================
+             NO PAYMENTS
+        ========================================== -->
+
+        <div
+            class="col-12 text-center"
+            *ngIf="paymentArray.length === 0"
+        >
+
+            <div class="alert alert-info">
+
+                No advance payments received yet.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

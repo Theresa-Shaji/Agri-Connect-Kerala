@@ -1,0 +1,382 @@
+ /* ================================
+   PAGE
+================================ */
+
+.buyer-registration-page {
+  min-height: calc(100vh - 120px);
+  background: #f4f8f5;
+  padding: 35px 20px 50px;
+  display: flex;
+  justify-content: center;
+}
+
+
+/* ================================
+   MAIN CARD
+================================ */
+
+.registration-card {
+  width: 100%;
+  max-width: 900px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0, 80, 40, 0.12);
+  overflow: hidden;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.registration-header {
+  background: linear-gradient(
+    135deg,
+    #16864c,
+    #08783f
+  );
+
+  color: white;
+  padding: 22px 30px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-icon {
+  width: 48px;
+  height: 48px;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 25px;
+}
+
+.registration-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.registration-header p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+
+/* ================================
+   FORM
+================================ */
+
+form {
+  padding: 28px 32px 22px;
+}
+
+
+/* ================================
+   SECTION TITLE
+================================ */
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  color: #08783f;
+
+  margin: 4px 0 18px;
+
+  padding-bottom: 9px;
+
+  border-bottom: 1px solid #e5eee8;
+}
+
+.section-title span {
+  font-size: 17px;
+}
+
+
+/* ================================
+   TWO COLUMN ROW
+================================ */
+
+.form-row {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 18px 24px;
+
+  margin-bottom: 4px;
+}
+
+
+/* ================================
+   FORM GROUP
+================================ */
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+
+.form-group label {
+  display: block;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #34433a;
+
+  margin-bottom: 7px;
+}
+
+.form-group label span {
+  color: #dc3545;
+}
+
+
+/* ================================
+   INPUTS
+================================ */
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+
+  border: 1px solid #d6dfd9;
+
+  border-radius: 7px;
+
+  padding: 10px 12px;
+
+  font-size: 14px;
+
+  color: #26352d;
+
+  background: #fff;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+
+.form-group input,
+.form-group select {
+  height: 42px;
+}
+
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 82px;
+}
+
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #159957;
+
+  box-shadow:
+    0 0 0 3px rgba(21, 153, 87, 0.10);
+}
+
+
+/* ================================
+   PLACEHOLDER
+================================ */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #a0aaa4;
+}
+
+
+/* ================================
+   PASSWORD
+================================ */
+
+.password-box {
+  position: relative;
+}
+
+.password-box input {
+  padding-right: 65px;
+}
+
+.show-password {
+  position: absolute;
+
+  right: 10px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+
+  color: #08783f;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.show-password:hover {
+  color: #055c30;
+}
+
+
+/* ================================
+   VALIDATION
+================================ */
+
+.error {
+  display: block;
+
+  color: #dc3545;
+
+  font-size: 11.5px;
+
+  margin-top: 5px;
+}
+
+
+.hint {
+  display: block;
+
+  color: #7b8780;
+
+  font-size: 11px;
+
+  margin-top: 5px;
+}
+
+
+/* ================================
+   BUTTON
+================================ */
+
+.button-area {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 12px;
+}
+
+
+.register-btn {
+  border: none;
+
+  background: linear-gradient(
+    135deg,
+    #16864c,
+    #08783f
+  );
+
+  color: white;
+
+  min-width: 190px;
+
+  padding: 11px 25px;
+
+  border-radius: 7px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 15px rgba(8, 120, 63, 0.20);
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+
+.register-btn span {
+  margin-right: 7px;
+}
+
+
+.register-btn:hover {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 7px 18px rgba(8, 120, 63, 0.28);
+}
+
+
+/* ================================
+   REQUIRED NOTE
+================================ */
+
+.required-note {
+  text-align: center;
+
+  margin: 15px 0 0;
+
+  color: #7c8781;
+
+  font-size: 11px;
+}
+
+.required-note span {
+  color: #dc3545;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 700px) {
+
+  .buyer-registration-page {
+    padding: 20px 12px 35px;
+  }
+
+  .registration-header {
+    padding: 18px 20px;
+  }
+
+  .registration-header h2 {
+    font-size: 20px;
+  }
+
+  form {
+    padding: 22px 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+
+    gap: 0;
+  }
+
+}

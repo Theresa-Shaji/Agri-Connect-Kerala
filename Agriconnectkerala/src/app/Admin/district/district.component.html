@@ -1,0 +1,104 @@
+<div class="main-panel">
+  <div class="content-wrapper">
+
+    <!-- View Data Button -->
+    <div class="d-flex justify-content-end mb-3">
+      <button
+        type="button"
+        class="btn btn-primary"
+        [routerLink]="['/adminmaster/districtview']">
+        View Data
+      </button>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+
+          <div class="card-body">
+
+            <h4 class="card-title">District Registration</h4>
+
+            <form
+              class="forms-sample"
+              [formGroup]="DistrictRegForm"
+              (ngSubmit)="Onsubmit()">
+
+              <!-- District Name -->
+              <div class="form-group">
+
+                <label for="districtName">
+                  District
+                </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  id="districtName"
+                  formControlName="DistrictName"
+                  placeholder="District Name">
+
+                <!-- Validation -->
+                <div
+                  *ngIf="
+                    DistrictRegForm.controls['DistrictName'].invalid &&
+                    (
+                      DistrictRegForm.controls['DistrictName'].dirty ||
+                      DistrictRegForm.controls['DistrictName'].touched
+                    )
+                  ">
+
+                  <!-- Required -->
+                  <label
+                    *ngIf="
+                      DistrictRegForm.controls['DistrictName'].errors?.['required']
+                    "
+                    class="text-danger">
+
+                    * Please enter the district name
+
+                  </label>
+
+                  <!-- Pattern -->
+                  <label
+                    *ngIf="
+                      DistrictRegForm.controls['DistrictName'].errors?.['pattern']
+                    "
+                    class="text-danger">
+
+                    * Only letters allowed & first letter should be capital
+
+                  </label>
+
+                </div>
+
+              </div>
+
+              <!-- Buttons -->
+              <button
+                type="submit"
+                class="btn btn-primary mr-2">
+
+                Submit
+
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-light"
+                (click)="DistrictRegForm.reset()">
+
+                Cancel
+
+              </button>
+
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

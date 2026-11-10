@@ -1,0 +1,323 @@
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-header bg-success text-white text-center">
+
+                    <h2 class="mb-0">
+                        🌾 Add Product
+                    </h2>
+
+                    <p class="mb-0">
+                        List Your Agricultural Product
+                    </p>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form #f="ngForm">
+
+                        <!-- Product Information -->
+
+                        <h5 class="text-success mb-3">
+                            Product Information
+                        </h5>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Category
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    name="categoryid"
+                                    [(ngModel)]="product.categoryid"
+                                    required>
+
+                                    <option value="">
+                                        Select Category
+                                    </option>
+
+                                    <option
+                                        *ngFor="let c of categoryArray"
+                                        [value]="c.categoryid">
+
+                                        {{c.categoryname}}
+
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Product Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="productname"
+                                    [(ngModel)]="product.productname"
+                                    placeholder="Enter Product Name"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-4 mb-3">
+
+                                <label class="form-label">
+                                    Quantity
+                                </label>
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    name="quantity"
+                                    [(ngModel)]="product.quantity"
+                                    min="1"
+                                    placeholder="Enter Quantity"
+                                    required>
+
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+
+                                <label class="form-label">
+                                    Unit
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    name="unit"
+                                    [(ngModel)]="product.unit"
+                                    required>
+
+                                    <option value="">Select Unit</option>
+
+                                    <option>Kg</option>
+                                    <option>Gram</option>
+                                    <option>Quintal</option>
+                                    <option>Ton</option>
+                                    <option>Litre</option>
+                                    <option>Piece</option>
+                                    <option>Bundle</option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+
+                                <label class="form-label">
+                                    Quality
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    name="quality"
+                                    [(ngModel)]="product.quality"
+                                    required>
+
+                                    <option value="">Select Quality</option>
+
+                                    <option>Excellent</option>
+                                    <option>Good</option>
+                                    <option>Average</option>
+                                    <option>Poor</option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Expected Price (₹)
+                                </label>
+
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    name="expectedprice"
+                                    [(ngModel)]="product.expectedprice"
+                                    min="1"
+                                    placeholder="Expected Price"
+                                    required>
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Upload Date
+                                </label>
+
+                                <input
+                                    type="date"
+                                    class="form-control"
+                                    name="uploaddate"
+                                    [(ngModel)]="product.uploaddate"
+                                    readonly>
+
+                            </div>
+
+                        </div>
+
+                        <hr>
+
+                        <!-- Location -->
+
+                        <h5 class="text-success mb-3">
+                            Location Details
+                        </h5>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    District
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    name="districtid"
+                                    [(ngModel)]="product.districtid"
+                                    (change)="loadLocation()"
+                                    required>
+
+                                    <option value="">
+                                        Select District
+                                    </option>
+
+                                    <option
+                                        *ngFor="let d of districtArray"
+                                        [value]="d.districtid">
+
+                                        {{d.districtname}}
+
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+
+                                <label class="form-label">
+                                    Location
+                                </label>
+
+                                <select
+                                    class="form-select"
+                                    name="locationid"
+                                    [(ngModel)]="product.locationid"
+                                    required>
+
+                                    <option value="">
+                                        Select Location
+                                    </option>
+
+                                    <option
+                                        *ngFor="let l of locationArray"
+                                        [value]="l.locationid">
+
+                                        {{l.locationname}}
+
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <hr>
+
+                        <!-- Description -->
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Description
+                            </label>
+
+                            <textarea
+                                rows="4"
+                                class="form-control"
+                                name="description"
+                                [(ngModel)]="product.description"
+                                placeholder="Describe your product..."
+                                required></textarea>
+
+                        </div>
+
+                        <!-- Image -->
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Product Image
+                            </label>
+
+                            <input
+                                type="file"
+                                class="form-control"
+                                (change)="uploadImage($event)"
+                                required>
+
+                        </div>
+
+                        <!-- Buttons -->
+
+                        <div class="text-center">
+
+                            <button
+                                type="button"
+                                class="btn btn-success px-5"
+                                (click)="saveProduct()">
+
+                                Save Product
+
+                            </button>
+
+                            <button
+                                type="reset"
+                                class="btn btn-secondary px-5 ms-3">
+
+                                Reset
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

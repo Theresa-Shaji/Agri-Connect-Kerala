@@ -1,0 +1,493 @@
+<div class="page-container">
+
+  <!-- =================================================
+       PAGE HEADER
+  ================================================== -->
+
+  <div class="page-header">
+
+    <h2>
+      My Purchase Requests
+    </h2>
+
+    <p>
+      View the purchase requests you have sent to farmers.
+    </p>
+
+  </div>
+
+
+  <!-- =================================================
+       NO REQUESTS
+  ================================================== -->
+
+  <div
+    class="empty-box"
+    *ngIf="requestArray.length === 0"
+  >
+
+    <div class="empty-icon">
+      📭
+    </div>
+
+    <h3>
+      No Purchase Requests
+    </h3>
+
+    <p>
+      You have not sent any purchase requests yet.
+    </p>
+
+  </div>
+
+
+  <!-- =================================================
+       REQUEST GRID
+  ================================================== -->
+
+  <div
+    class="request-grid"
+    *ngIf="requestArray.length > 0"
+  >
+
+
+    <!-- =================================================
+         REQUEST CARD
+    ================================================== -->
+
+    <div
+      class="request-card"
+      *ngFor="let request of requestArray"
+    >
+
+
+      <!-- =================================================
+           PRODUCT IMAGE
+      ================================================== -->
+
+      <div class="image-container">
+
+        <img
+          [src]="'http://localhost:3000/images/' + request.image"
+          [alt]="request.productname"
+        >
+
+      </div>
+
+
+      <!-- =================================================
+           PRODUCT HEADER
+      ================================================== -->
+
+      <div class="product-header">
+
+        <h3>
+          {{ request.productname }}
+        </h3>
+
+
+        <!-- PENDING -->
+
+        <span
+          class="status-badge pending"
+          *ngIf="request.status === 'Pending'"
+        >
+          Pending
+        </span>
+
+
+        <!-- ACCEPTED -->
+
+        <span
+          class="status-badge accepted"
+          *ngIf="request.status === 'Accepted'"
+        >
+          Accepted
+        </span>
+
+
+        <!-- REJECTED -->
+
+        <span
+          class="status-badge rejected"
+          *ngIf="request.status === 'Rejected'"
+        >
+          Rejected
+        </span>
+
+
+        <!-- PAID -->
+
+        <span
+          class="status-badge paid-status"
+          *ngIf="request.status === 'Paid'"
+        >
+          ✓ Paid
+        </span>
+
+      </div>
+
+
+      <!-- =================================================
+           CARD BODY
+      ================================================== -->
+
+      <div class="card-body">
+
+
+        <!-- =================================================
+             PRODUCT DETAILS
+        ================================================== -->
+
+        <div class="section">
+
+          <h4>
+            🌾 Product Details
+          </h4>
+
+
+          <div class="detail-row">
+
+            <span>
+              Category
+            </span>
+
+            <strong>
+              {{ request.categoryname || 'Not Available' }}
+            </strong>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>
+              Available Quantity
+            </span>
+
+            <strong>
+              {{ request.availablequantity || 0 }}
+              {{ request.unit }}
+            </strong>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>
+              Expected Price
+            </span>
+
+            <strong>
+              ₹{{ request.expectedprice || 0 }}
+              / {{ request.unit }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             FARMER DETAILS
+        ================================================== -->
+
+        <div class="section">
+
+          <h4>
+            Farmer Details
+          </h4>
+
+
+          <div class="detail-row">
+
+            <span>
+              Farmer Name
+            </span>
+
+            <strong>
+              {{ request.farmername || 'Not Available' }}
+            </strong>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>
+              Phone
+            </span>
+
+            <strong>
+              {{ request.farmerphone || 'Not Available' }}
+            </strong>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>
+              District
+            </span>
+
+            <strong>
+              {{ request.districtname || 'Not Available' }}
+            </strong>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>
+              Location
+            </span>
+
+            <strong>
+              {{ request.locationname || 'Not Available' }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PURCHASE REQUEST
+        ================================================== -->
+
+        <div class="section request-section">
+
+          <h4>
+            Purchase Request
+          </h4>
+
+
+          <div class="detail-row">
+
+            <span>
+              Requested Quantity
+            </span>
+
+            <strong>
+              {{ request.requestquantity || 0 }}
+              {{ request.unit }}
+            </strong>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>
+              Offered Price
+            </span>
+
+            <strong class="offer-price">
+              ₹{{ request.offeredprice || 0 }}
+              / {{ request.unit }}
+            </strong>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>
+              Total Amount
+            </span>
+
+            <strong class="total-price">
+              ₹{{ request.totalamount || 0 }}
+            </strong>
+
+          </div>
+
+
+          <div class="detail-row">
+
+            <span>
+              Request Date
+            </span>
+
+            <strong>
+              {{ request.requestdate | date:'dd-MM-yyyy' }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             MESSAGE
+        ================================================== -->
+
+        <div
+          class="message-box"
+          *ngIf="request.message"
+        >
+
+          <h4>
+            Message to Farmer
+          </h4>
+
+          <p>
+            {{ request.message }}
+          </p>
+
+        </div>
+
+
+        <!-- =================================================
+             FARMER RESPONSE
+        ================================================== -->
+
+        <div class="response-section">
+
+          <h4>
+            Farmer Response
+          </h4>
+
+
+          <!-- =================================================
+               PENDING
+          ================================================== -->
+
+          <div
+            class="response pending-response"
+            *ngIf="request.status === 'Pending'"
+          >
+
+            Waiting for farmer response
+
+          </div>
+
+
+          <!-- =================================================
+               ACCEPTED
+          ================================================== -->
+
+          <div
+            class="response accepted-response"
+            *ngIf="request.status === 'Accepted'"
+          >
+
+            <div class="accepted-action">
+
+              <span class="accepted-text">
+
+                ✓ Farmer accepted your request
+
+              </span>
+
+
+              <!-- =================================================
+                   MAKE PAYMENT
+              ================================================== -->
+
+              <button
+                *ngIf="
+                  !request.paymentstatus ||
+                  request.paymentstatus !== 'Paid'
+                "
+                type="button"
+                class="payment-btn"
+                (click)="makePayment(request.requestid)"
+              >
+
+                💳 Make Payment
+
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================================
+               PAID
+          ================================================== -->
+
+          <div
+            class="response paid-response"
+            *ngIf="
+              request.status === 'Paid' ||
+              request.paymentstatus === 'Paid'
+            "
+          >
+
+            <div class="paid-action">
+
+              <!-- PAID STATUS -->
+
+              <div class="paid-message">
+
+                <span class="paid-icon">
+                  ✓
+                </span>
+
+                <div>
+
+                  <strong>
+                    Payment Completed
+                  </strong>
+
+                  <small>
+                    Advance payment has been successfully recorded.
+                  </small>
+
+                </div>
+
+              </div>
+
+
+              <!-- =================================================
+                   VIEW RECEIPT BUTTON
+              ================================================== -->
+
+              <button
+                type="button"
+                class="receipt-btn"
+                (click)="viewReceipt(request)"
+              >
+
+                <span class="receipt-icon">
+                  🧾
+                </span>
+
+                <span>
+                  View Receipt
+                </span>
+
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <!-- =================================================
+               REJECTED
+          ================================================== -->
+
+          <div
+            class="response rejected-response"
+            *ngIf="request.status === 'Rejected'"
+          >
+
+            ✕ Farmer rejected your request
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,138 @@
+.container-fluid {
+  padding: 20px;
+}
+
+
+/* Main Card */
+
+.card {
+  border-radius: 10px;
+  border: none;
+}
+
+
+/* Header */
+
+.card-header {
+  font-weight: bold;
+  padding: 18px 22px;
+}
+
+
+/* Price Count */
+
+.price-count {
+  background: white;
+  color: #198754;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+/* Filter Box */
+
+.filter-box {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 25px;
+}
+
+
+.filter-box label {
+  margin-bottom: 8px;
+  color: #333;
+}
+
+
+/* Select */
+
+.form-control {
+  height: 46px;
+  border-radius: 6px;
+}
+
+
+/* Buttons */
+
+.btn {
+  border-radius: 5px;
+  padding: 9px 18px;
+}
+
+
+/* Information Box */
+
+.info-box {
+  background: #eaf7ef;
+  border-left: 4px solid #198754;
+  padding: 14px 18px;
+  border-radius: 5px;
+  color: #286044;
+}
+
+
+/* Table */
+
+.table {
+  margin-bottom: 0;
+}
+
+
+.table th {
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  padding: 12px;
+}
+
+
+.table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 12px;
+}
+
+
+/* Price */
+
+.price {
+  color: #198754;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+/* Badge */
+
+.badge {
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+
+/* No Data */
+
+.no-data {
+  padding: 50px !important;
+  color: #777;
+}
+
+
+.no-data i {
+  color: #198754;
+  margin-bottom: 15px;
+}
+
+
+.no-data h5 {
+  margin-top: 10px;
+  color: #555;
+}
+
+
+.no-data p {
+  color: #999;
+}

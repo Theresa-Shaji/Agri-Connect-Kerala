@@ -1,0 +1,592 @@
+<div class="purchase-report-page">
+
+
+  <!-- ==========================================
+       HEADER
+  =========================================== -->
+
+  <div class="report-header">
+
+    <div>
+
+      <h2>
+        <i class="bi bi-file-earmark-bar-graph"></i>
+        Purchase Report
+      </h2>
+
+      <p>
+        View purchase requests received from buyers
+      </p>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="print-btn"
+      (click)="printReport()">
+
+      <i class="bi bi-printer"></i>
+
+      Print Report
+
+    </button>
+
+  </div>
+
+
+
+  <!-- ==========================================
+       SUMMARY
+  =========================================== -->
+
+  <div class="summary-grid">
+
+
+    <!-- TOTAL REQUESTS -->
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+
+        <i class="bi bi-cart-check"></i>
+
+      </div>
+
+      <div>
+
+        <h3>
+          {{ totalRequests }}
+        </h3>
+
+        <p>
+          Total Requests
+        </p>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ACCEPTED -->
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+
+        <i class="bi bi-check-circle"></i>
+
+      </div>
+
+      <div>
+
+        <h3>
+          {{ acceptedRequests }}
+        </h3>
+
+        <p>
+          Accepted
+        </p>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- QUANTITY -->
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+
+        <i class="bi bi-box-seam"></i>
+
+      </div>
+
+      <div>
+
+        <h3>
+          {{ totalQuantity }}
+        </h3>
+
+        <p>
+          Total Quantity
+        </p>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- AMOUNT -->
+
+    <div class="summary-card">
+
+      <div class="summary-icon">
+
+        <i class="bi bi-currency-rupee"></i>
+
+      </div>
+
+      <div>
+
+        <h3>
+          ₹{{ totalAmount | number:'1.2-2' }}
+        </h3>
+
+        <p>
+          Total Amount
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ==========================================
+       FILTER
+  =========================================== -->
+
+  <div class="filter-card">
+
+
+    <div class="filter-title">
+
+      <i class="bi bi-funnel"></i>
+
+      Filter Report
+
+    </div>
+
+
+
+    <div class="filter-grid">
+
+
+      <!-- FROM DATE -->
+
+      <div class="filter-group">
+
+        <label>
+          From Date
+        </label>
+
+        <input
+          type="date"
+          [(ngModel)]="fromdate"
+          (change)="applyFilter()">
+
+      </div>
+
+
+
+      <!-- TO DATE -->
+
+      <div class="filter-group">
+
+        <label>
+          To Date
+        </label>
+
+        <input
+          type="date"
+          [(ngModel)]="todate"
+          (change)="applyFilter()">
+
+      </div>
+
+
+
+      <!-- BUYER TYPE -->
+
+      <div class="filter-group">
+
+        <label>
+          Buyer Type
+        </label>
+
+        <select
+          [(ngModel)]="selectedBuyerType"
+          (change)="applyFilter()">
+
+          <option value="All">
+            All Buyers
+          </option>
+
+          <option value="Shop Owner">
+            Shop Owner
+          </option>
+
+          <option value="Buyer">
+            Buyer
+          </option>
+
+        </select>
+
+      </div>
+
+
+
+      <!-- STATUS -->
+
+      <div class="filter-group">
+
+        <label>
+          Status
+        </label>
+
+        <select
+          [(ngModel)]="selectedStatus"
+          (change)="applyFilter()">
+
+          <option value="All">
+            All
+          </option>
+
+          <option value="Accepted">
+            Accepted
+          </option>
+
+          <option value="Pending">
+            Pending
+          </option>
+
+          <option value="Rejected">
+            Rejected
+          </option>
+
+        </select>
+
+      </div>
+
+
+
+      <!-- CLEAR -->
+
+      <div class="filter-buttons">
+
+        <button
+          type="button"
+          class="clear-btn"
+          (click)="clearFilter()">
+
+          <i class="bi bi-x-circle"></i>
+
+          Clear
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- ==========================================
+       TABLE
+  =========================================== -->
+
+  <div class="table-card">
+
+
+    <div class="table-header">
+
+      <div>
+
+        <h3>
+          Purchase Requests
+        </h3>
+
+        <p>
+          Purchase requests received from shop owners and buyers
+        </p>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- LOADING -->
+
+    <div
+      class="loading"
+      *ngIf="loading">
+
+      <i class="bi bi-arrow-repeat"></i>
+
+      Loading purchase report...
+
+    </div>
+
+
+
+    <!-- TABLE -->
+
+    <div
+      class="table-responsive"
+      *ngIf="
+        !loading &&
+        filteredPurchaseArray.length > 0
+      ">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Product
+            </th>
+
+            <th>
+              Buyer Type
+            </th>
+
+            <th>
+              Buyer / Shop
+            </th>
+
+            <th>
+              Phone
+            </th>
+
+            <th>
+              Quantity
+            </th>
+
+            <th>
+              Offered Price
+            </th>
+
+            <th>
+              Total Amount
+            </th>
+
+            <th>
+              Request Date
+            </th>
+
+            <th>
+              Status
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+
+        <tbody>
+
+          <tr
+            *ngFor="
+              let item of filteredPurchaseArray
+            ">
+
+
+            <!-- PRODUCT -->
+
+            <td>
+
+              <div class="product-name">
+
+                <i class="bi bi-box"></i>
+
+                {{ item.productname }}
+
+              </div>
+
+            </td>
+
+
+
+            <!-- BUYER TYPE -->
+
+            <td>
+
+              <span
+                class="buyer-type"
+                [ngClass]="
+                  item.buyertype === 'Buyer'
+                    ? 'buyer'
+                    : 'shop-owner'
+                ">
+
+                {{ item.buyertype }}
+
+              </span>
+
+            </td>
+
+
+
+            <!-- BUYER / SHOP -->
+
+            <td>
+
+              <div class="buyer-details">
+
+
+                <!-- SHOP OWNER -->
+
+                <ng-container
+                  *ngIf="
+                    item.buyertype === 'Shop Owner'
+                  ">
+
+                  <strong>
+                    {{ item.shopname }}
+                  </strong>
+
+                  <small>
+                    {{ item.ownername }}
+                  </small>
+
+                </ng-container>
+
+
+
+                <!-- BUYER -->
+
+                <ng-container
+                  *ngIf="
+                    item.buyertype === 'Buyer'
+                  ">
+
+                  <strong>
+                    {{ item.buyername }}
+                  </strong>
+
+                  <small>
+                    {{ item.buyeremail }}
+                  </small>
+
+                </ng-container>
+
+              </div>
+
+            </td>
+
+
+
+            <!-- PHONE -->
+
+            <td>
+
+              {{ item.buyerphone }}
+
+            </td>
+
+
+
+            <!-- QUANTITY -->
+
+            <td>
+
+              <strong>
+                {{ item.quantity }}
+              </strong>
+
+              <span class="unit">
+                {{ item.unit }}
+              </span>
+
+            </td>
+
+
+
+            <!-- OFFERED PRICE -->
+
+            <td>
+
+              ₹{{ item.offeredprice | number:'1.2-2' }}
+
+            </td>
+
+
+
+            <!-- TOTAL -->
+
+            <td>
+
+              <span class="amount">
+
+                ₹{{ item.totalamount | number:'1.2-2' }}
+
+              </span>
+
+            </td>
+
+
+
+            <!-- DATE -->
+
+            <td>
+
+              {{ item.requestdate | date:'dd-MM-yyyy' }}
+
+            </td>
+
+
+
+            <!-- STATUS -->
+
+            <td>
+
+              <span
+                class="status"
+                [ngClass]="
+                  getStatusClass(item.status)
+                ">
+
+                {{ item.status }}
+
+              </span>
+
+            </td>
+
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+
+    <!-- NO DATA -->
+
+    <div
+      class="no-data"
+      *ngIf="
+        !loading &&
+        filteredPurchaseArray.length === 0
+      ">
+
+      <i class="bi bi-inbox"></i>
+
+      <h3>
+        No Purchase Requests Found
+      </h3>
+
+      <p>
+        No purchase requests match the selected filters.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,383 @@
+<div class="payment-page">
+
+  <!-- =========================
+       PAGE HEADER
+  ========================== -->
+  <div class="payment-header">
+
+    <div class="header-icon">
+      💳
+    </div>
+
+    <div>
+      <h2>Make Payment</h2>
+      <p>Complete the advance payment for your accepted purchase request.</p>
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       LOADING
+  ========================== -->
+  <div class="loading-box" *ngIf="loading">
+
+    <div class="loader"></div>
+
+    <p>Loading payment details...</p>
+
+  </div>
+
+
+  <!-- =========================
+       ERROR
+  ========================== -->
+  <div
+    class="error-box"
+    *ngIf="!loading && errorMessage"
+  >
+
+    <span>⚠️</span>
+
+    <div>
+      <strong>Unable to load payment details</strong>
+      <p>{{ errorMessage }}</p>
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       PAYMENT CONTENT
+  ========================== -->
+  <div
+    class="payment-container"
+    *ngIf="!loading && paymentDetails"
+  >
+
+
+    <!-- =========================
+         PRODUCT CARD
+    ========================== -->
+    <div class="product-card">
+
+      <div class="product-image">
+
+        <img
+          [src]="'http://localhost:3000/images/' + paymentDetails.image"
+          [alt]="paymentDetails.productname"
+        >
+
+      </div>
+
+
+      <div class="product-info">
+
+        <div class="product-title-row">
+
+          <h3>
+            {{ paymentDetails.productname }}
+          </h3>
+
+          <span class="accepted-badge">
+            ✓ Request Accepted
+          </span>
+
+        </div>
+
+        <p class="category">
+          {{ paymentDetails.categoryname }}
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         MAIN DETAILS GRID
+    ========================== -->
+    <div class="details-grid">
+
+
+      <!-- =========================
+           FARMER DETAILS
+      ========================== -->
+      <div class="info-card">
+
+        <h4>
+           Farmer Details
+        </h4>
+
+        <div class="info-row">
+
+          <span>Farmer Name</span>
+
+          <strong>
+            {{ paymentDetails.farmername || 'Not Available' }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>Phone</span>
+
+          <strong>
+            {{ paymentDetails.farmerphone || 'Not Available' }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>District</span>
+
+          <strong>
+            {{ paymentDetails.districtname || 'Not Available' }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>Location</span>
+
+          <strong>
+            {{ paymentDetails.locationname || 'Not Available' }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           PURCHASE DETAILS
+      ========================== -->
+      <div class="info-card">
+
+        <h4>
+           Purchase Details
+        </h4>
+
+
+        <div class="info-row">
+
+          <span>Requested Quantity</span>
+
+          <strong>
+            {{ paymentDetails.requestquantity }}
+            {{ paymentDetails.unit }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>Offered Price</span>
+
+          <strong class="green-value">
+            ₹{{ paymentDetails.offeredprice }}
+            / {{ paymentDetails.unit }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>Expected Price</span>
+
+          <strong>
+            ₹{{ paymentDetails.expectedprice }}
+            / {{ paymentDetails.unit }}
+          </strong>
+
+        </div>
+
+
+        <div class="info-row">
+
+          <span>Request Date</span>
+
+          <strong>
+            {{ paymentDetails.requestdate | date:'dd-MM-yyyy' }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         PRICE SUMMARY
+    ========================== -->
+    <div class="summary-card">
+
+      <div class="summary-title">
+
+        <div>
+          <h3>Payment Summary</h3>
+          <p>Based on your accepted purchase request</p>
+        </div>
+
+        <span class="advance-badge">
+          20% Advance
+        </span>
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Quantity
+        </span>
+
+        <strong>
+          {{ paymentDetails.requestquantity }}
+          {{ paymentDetails.unit }}
+        </strong>
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Price per {{ paymentDetails.unit }}
+        </span>
+
+        <strong>
+          ₹{{ paymentDetails.offeredprice }}
+        </strong>
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Total Purchase Amount
+        </span>
+
+        <strong>
+          ₹{{ totalAmount | number:'1.0-2' }}
+        </strong>
+
+      </div>
+
+
+      <div class="divider"></div>
+
+
+      <!-- ADVANCE -->
+      <div class="advance-box">
+
+        <div class="advance-top">
+
+          <div>
+            <h4>Advance Payment</h4>
+
+            <p>
+              20% of the total purchase amount
+            </p>
+          </div>
+
+          <span>
+            20%
+          </span>
+
+        </div>
+
+
+        <div class="advance-amount">
+
+          ₹{{ advanceAmount | number:'1.0-2' }}
+
+        </div>
+
+      </div>
+
+
+      <!-- REMAINING -->
+      <div class="summary-row remaining-row">
+
+        <span>
+          Remaining Amount
+        </span>
+
+        <strong>
+          ₹{{ (totalAmount - advanceAmount) | number:'1.0-2' }}
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         PAYMENT ACTION
+    ========================== -->
+    <div class="payment-action">
+
+      <div class="secure-text">
+
+        <span>🔒</span>
+
+        <div>
+          <strong>Secure Payment</strong>
+
+          <small>
+            Your payment information is protected.
+          </small>
+        </div>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="pay-button"
+        [disabled]="processingPayment"
+        (click)="payNow()"
+      >
+
+        <span *ngIf="!processingPayment">
+          💳 Pay ₹{{ advanceAmount | number:'1.0-2' }}
+        </span>
+
+        <span *ngIf="processingPayment">
+          Processing...
+        </span>
+
+      </button>
+
+    </div>
+
+
+    <!-- =========================
+         NOTE
+    ========================== -->
+    <div class="payment-note">
+
+      <span>ℹ️</span>
+
+      <p>
+        You are required to pay 20% of the total purchase amount
+        as advance payment. The remaining amount can be settled
+        according to the final purchase arrangement with the farmer.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

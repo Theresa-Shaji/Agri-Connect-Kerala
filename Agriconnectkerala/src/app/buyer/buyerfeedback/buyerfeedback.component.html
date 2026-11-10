@@ -1,0 +1,201 @@
+<div class="feedback-page">
+
+  <!-- HEADER -->
+  <div class="feedback-header">
+
+    <h2>⭐ Give Feedback</h2>
+
+    <p>
+      Share your experience with the farmer and product you purchased.
+    </p>
+
+  </div>
+
+
+  <!-- LOADING -->
+  <div
+    class="loading-box"
+    *ngIf="loading"
+  >
+
+    <div class="loader"></div>
+
+    <p>Loading your purchases...</p>
+
+  </div>
+
+
+  <!-- ERROR -->
+  <div
+    class="error-box"
+    *ngIf="!loading && errorMessage"
+  >
+
+    ⚠️ {{ errorMessage }}
+
+  </div>
+
+
+  <!-- NO PURCHASES -->
+  <div
+    class="empty-box"
+    *ngIf="
+      !loading &&
+      !errorMessage &&
+      feedbackRequests.length === 0
+    "
+  >
+
+    <div class="empty-icon">
+      ⭐
+    </div>
+
+    <h3>No Feedback Available</h3>
+
+    <p>
+      You don't have any purchases waiting for feedback.
+    </p>
+
+  </div>
+
+
+  <!-- FEEDBACK CARDS -->
+  <div
+    class="feedback-grid"
+    *ngIf="
+      !loading &&
+      feedbackRequests.length > 0
+    "
+  >
+
+    <div
+      class="feedback-card"
+      *ngFor="let request of feedbackRequests"
+    >
+
+      <!-- PRODUCT IMAGE -->
+      <div class="product-image">
+
+        <img
+          [src]="'http://localhost:3000/images/' + request.image"
+          [alt]="request.productname"
+        >
+
+      </div>
+
+
+      <!-- PRODUCT DETAILS -->
+      <div class="card-content">
+
+        <h3>
+          {{ request.productname }}
+        </h3>
+
+
+        <div class="farmer-name">
+
+          Farmer:
+          <strong>
+            {{ request.farmername }}
+          </strong>
+
+        </div>
+
+
+        <div class="purchase-details">
+
+          <div>
+
+            <span>Quantity</span>
+
+            <strong>
+              {{ request.requestquantity }}
+              {{ request.unit }}
+            </strong>
+
+          </div>
+
+
+          <div>
+
+            <span>Price</span>
+
+            <strong>
+              ₹{{ request.offeredprice }}
+              / {{ request.unit }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <div class="feedback-form">
+
+          <label>
+            Your Rating
+          </label>
+
+
+          <!-- STAR RATING -->
+          <div class="stars">
+
+            <span
+              *ngFor="let star of [1,2,3,4,5]"
+              [class.selected]="
+                request.rating >= star
+              "
+              (click)="request.rating = star"
+            >
+              ★
+            </span>
+
+          </div>
+
+
+          <p class="rating-text">
+
+            <span *ngIf="!request.rating">
+              Select a rating
+            </span>
+
+            <span *ngIf="request.rating">
+              {{ request.rating }} / 5
+            </span>
+
+          </p>
+
+
+          <!-- FEEDBACK -->
+          <label>
+            Your Feedback
+          </label>
+
+
+          <textarea
+            [(ngModel)]="request.feedback"
+            placeholder="Write your experience with the farmer and product..."
+            rows="4"
+          ></textarea>
+
+
+          <!-- SUBMIT BUTTON -->
+          <button
+            type="button"
+            class="submit-feedback-btn"
+            (click)="submitFeedback(request)"
+          >
+
+            ⭐ Submit Feedback
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
